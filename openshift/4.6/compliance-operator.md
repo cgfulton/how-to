@@ -71,7 +71,7 @@ For this exercise we will be creating a unique namespace to deploy the [complian
 oc new-project fisma-moderate
 ```
 
-#### `CatalogeSource`
+#### Create `CatalogeSource`
 A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator.
 
 **Verfiy** the [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object exists in the `openshift-marketplace` namespace:
