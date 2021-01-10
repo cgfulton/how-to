@@ -147,6 +147,18 @@ oc get subscription fisma-moderate-subscription -n fisma-moderate -oyaml | less
 
 At this point, [OpenShift Lifecycle Manager](https://docs.openshift.com/container-platform/4.6/operators/understanding/olm/olm-understanding-olm.html) is now aware of the selected Operator. A cluster service version (CSV) for the Operator should appear in the target namespace, and APIs provided by the Operator should be available for creation.
 
+** Verify** the [compliance-operator](https://github.com/openshift/compliance-operator) version:
+
+```bash
+oc get csv -n fisma-moderate
+```
+
+**Verify** the [compliance-operator](https://github.com/openshift/compliance-operator) approval:
+
+```bash
+oc get ip -n fisma-moderate
+```
+
 ## Create `Scans` 
 After we have installed the [compliance-operator](https://github.com/openshift/compliance-operator) in the `fisma-moderate` namespace we are ready to start creating scans.
 
@@ -226,7 +238,7 @@ The [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/mast
 **Create** a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object with node and platform scans named `fisma-moderate-node-type-scan-setting` and `fisma-moderate-platform-type-scan-setting`:
 
 ```bash
-oc create -n fisma-moderate -f - <<EOF
+oc apply -n fisma-moderate -f - <<EOF
 apiVersion: compliance.openshift.io/v1alpha1
 kind: ComplianceSuite
 metadata:
@@ -239,10 +251,14 @@ spec:
       scanType: Node
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-rhcos4-ds.xml
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
     - name: fisma-moderate-ocp4-scan
       scanType: Platform
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-ocp4-ds.xml
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
 EOF
 ```
 
