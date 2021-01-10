@@ -6,7 +6,7 @@
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
     - [Verify Operator Availability](#verify-operator-availability)
-    - [Inspect Install Modes and Channels](#inspect-install-modes-channels)
+    - [Inspect Install Modes and Channels](#inspect-install-modes-and-hannels)
     - [Create Namespace](#create-namespace)
     - [Create CatalogeSource](#create-catelogesource)
     - [Create OperatorGroup](#create-operatorgroup)
