@@ -68,19 +68,11 @@ For this exercise we will be creating a unique namespace to deploy the [complian
 oc new-project fisma-moderate
 ```
 
-#### Create `CatalogeSource`
-A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator.
-
-**Verfiy** the [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object exists in the `openshift-marketplace` namespace:
+#### View `CatalogeSource`
+A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator. View the available [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace:
 
 ```bash
 oc get catalogsource redhat-marketplace -n openshift-marketplace
-```
-
-**Inspect** the [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object in the `openshift-marketplace` namespace:
-
-```bash
-oc get catalogsource redhat-marketplace -n openshift-marketplace -oyaml | less
 ```
 
 #### Create `OperatorGroup`
@@ -100,12 +92,6 @@ spec:
   targetNamespaces:
   - fisma-moderate   
 EOF
-```
-
-**Verifiy** the [OperaterGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object exists:
-
-```bash
-oc get OperatorGroup -n fisma-moderate
 ```
 
 **Inspect** the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object.
@@ -131,12 +117,6 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF
-```
-
-**Verify** the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object exists:
-
-```bash
-oc get subscription -n fisma-moderate
 ```
 
 **Inspect** the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object:
@@ -292,7 +272,7 @@ oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject
 
 
 
-
+#TODO
 
 
 ### The `ProfileBundle` Object
