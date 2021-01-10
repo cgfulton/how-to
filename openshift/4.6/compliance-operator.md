@@ -2,6 +2,37 @@
 
 ## Table Of Contents
 
+- [Summary](#summary)
+- [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+    - [Operator Availability](#operator-availability)
+    - [Install Modes and Channels](#install-modes-channels)
+    - [Create Namespace](#create-namespace)
+    - [Create CatalogeSource](#create-source)
+    - [Create OperatorGroup](#create-operatorgroup)
+    - [Create Subscription](#create-subscription)
+
+
+
+
+Using the Compliance Operator
+Create Scan Settings
+Create Scan Setting Binding
+Create Compliance Suite
+Generated Compliance Scan
+The ProfileBundle Object
+
+The Profile Object
+Reconcile ComplianceSuite
+View Scan Pods
+
+
+View ComplianceCheckResult Object
+
+The ComplianceRemediation Object
+View Iitial Compliance Remediation
+Apply Compliance Remediation
+View Applied Compliance Remediation
 
 ## Summary
 Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) to perform a FISMA moderate compliance scan.
@@ -14,7 +45,7 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 
 * Assuming the `oc command` installed on your local system.
 
-#### Verify `Operator Availability`
+#### Operator `Availability`
 We need to ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster.
 
 **Verify** availability using the following command:
