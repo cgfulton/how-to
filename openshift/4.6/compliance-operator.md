@@ -8,7 +8,7 @@
     - [Verify Operator Availability](#verify-operator-availability)
     - [Inspect install Modes and Channels](#inspect-install-modes-and-channels)
     - [Create Namespace](#create-namespace)
-    - [Create CatalogeSource](#create-catelogesource)
+    - [Create CatalogeSource](#create-catalogesource)
     - [Create OperatorGroup](#create-operatorgroup)
     - [Create Subscription](#create-subscription)
 - [Create Scans](#create-scans)
@@ -18,20 +18,18 @@
   - [Inspect ComplianceScan](#inspect-compliancescan)
   
   
-  
+# TODO
+```text
 The ProfileBundle Object
-
 The Profile Object
-Reconcile ComplianceSuite
+//Reconcile ComplianceSuite
 View Scan Pods
-
-
 View ComplianceCheckResult Object
-
 The ComplianceRemediation Object
 View Iitial Compliance Remediation
 Apply Compliance Remediation
 View Applied Compliance Remediation
+```
 
 ## Summary
 Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) to perform a FISMA moderate compliance scan.
