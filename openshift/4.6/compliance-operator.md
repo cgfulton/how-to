@@ -1,4 +1,4 @@
-# HOW-TO: FISMA Moderate Compliance Scan 
+# HOW-TO: Execute A FISMA Moderate Compliance Scan 
 
 ## Table Of Contents
 
@@ -11,7 +11,7 @@
     - [Create CatalogeSource](#create-catelogesource)
     - [Create OperatorGroup](#create-operatorgroup)
     - [Create Subscription](#create-subscription)
-- [Create Scans](#create-scan)
+- [Create Scans](#create-scans)
   - [Create ScanSettings](#create-scansettings)
   - [Create ScanSettingBinding](#create-scansettingbinding)
   - [Create ComplianceSuite](#create-compliancesuite)
@@ -274,6 +274,12 @@ oc get compliancescan -n fisma-moderate fisma-moderate-ocp4-scan
 ```bash
 oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=fisma-moderate-ocp4-scan
 ```
+
+
+
+
+
+
 
 ### The `ProfileBundle` Object
 OpenSCAP content for consumption by the Compliance Operator is distributed
