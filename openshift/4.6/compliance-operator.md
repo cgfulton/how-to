@@ -5,10 +5,10 @@
 - [Summary](#summary)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-    - [Operator Availability](#operator-availability)
-    - [Install Modes and Channels](#install-modes-channels)
+    - [Verify Operator Availability](#verify-operator-availability)
+    - [Inspect Install Modes and Channels](#inspect-install-modes-channels)
     - [Create Namespace](#create-namespace)
-    - [Create CatalogeSource](#create-source)
+    - [Create CatalogeSource](#create-catelogesource)
     - [Create OperatorGroup](#create-operatorgroup)
     - [Create Subscription](#create-subscription)
 
@@ -45,7 +45,7 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 
 * Assuming the `oc command` installed on your local system.
 
-#### Operator `Availability`
+#### Verify `Operator Availability`
 We need to ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster.
 
 **Verify** availability using the following command:
