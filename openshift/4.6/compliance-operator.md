@@ -1,6 +1,7 @@
-[[_TOC_]]
-
 # HOW-TO: FISMA Moderate Compliance Scan 
+
+## Table Of Contents
+
 
 ## Summary
 Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) to perform a FISMA moderate compliance scan.
