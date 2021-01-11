@@ -1,4 +1,4 @@
-# HOW-TO: Compliance Operator Using The CLI
+# HOW-TO: Compliance Operator
 Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a nist moderate compliance scan.
 
 ## Table Of Contents
@@ -73,7 +73,7 @@ oc new-project fisma-moderate
 #### Catalog Source
 A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator. 
 
-##### Inspect CatalogSource
+##### Inspect Catalog Source
 Inspect the available [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace:
 
 ```bash
@@ -85,7 +85,7 @@ An Operator group, defined by an [OperatorGroup](https://docs.openshift.com/cont
 
 The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. For our exercise we will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `fisma-moderate` namespace.
 
-##### Create OperatorGroup
+##### Create Operator Group
 Create an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 
 ```bash
@@ -100,7 +100,7 @@ spec:
 EOF
 ```
 
-##### Inspect OperatorGroup
+##### Inspect Operator Group
 Inspect the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 
 ```bash
@@ -147,8 +147,8 @@ List the [Cluster Service Version](https://docs.openshift.com/container-platform
 oc get clusterserviceversion -n fisma-moderate
 ```
 
-##### List 
-List the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
+##### List Install Plan
+List the [compliance-operator](https://github.com/openshift/compliance-operator) install plan using the following command:
 
 ```bash
 oc get ip -n fisma-moderate
@@ -156,12 +156,14 @@ oc get ip -n fisma-moderate
 
 At this point, the operator should be up and running.
 
-**List** deployment:
+##### List Deployment
+
 ```bash
 oc get deploy -n fisma-moderate
 ```
 
-**List** the running pods:
+##### List Pods
+
 ```bash
 oc get pods -n fisma-moderate
 ```
@@ -169,7 +171,7 @@ oc get pods -n fisma-moderate
 ##### Profile Bundle
 OpenSCAP content for consumption by the Compliance Operator is distributedas container images. In order to make it easier for users to discover what profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) can be then either used directly or further customized using a [TailoredProfile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-tailoredprofile-object) object.
 
-**List** ProfileBundle objects:
+###### List Profile Bundle
 
 ```bash
 oc get profilebundle -n fisma-moderate
@@ -182,7 +184,8 @@ several [Profiles](https://github.com/openshift/compliance-operator/blob/master/
 an OpenSCAP profile such as its XCCDF identifier, what kind of checks the
 profile contains (node vs platform) and for what system or platform.
 
-**List** the out-of-the-box [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects that are part of the [compliance-operator](https://github.com/openshift/compliance-operator) installation using the following command:
+###### List Profile
+The out-of-the-box [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects that are part of the [compliance-operator](https://github.com/openshift/compliance-operator) installation and can be listed using the following command:
 
 ```bash
 oc get -n fisma-moderate profiles.compliance
