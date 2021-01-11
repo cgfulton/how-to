@@ -49,7 +49,7 @@ We need to ensure that the [compliance-operator](https://github.com/openshift/co
 oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 ```
 
-#### Modes and Channels
+#### Install Modes and Channels
 Inspect the [compliance-operator](https://github.com/openshift/compliance-operator) package manifest to view the available `Install Modes` and `Channels`. For this exercise we will be installing the operator in a `SingleNamespace` type. 
 
 **Inspect** the supported install modes and channels supported using the following command:
