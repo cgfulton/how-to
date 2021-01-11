@@ -1,4 +1,4 @@
-# HOW-TO: Execute A FISMA Moderate Compliance Scan 
+# HOW-TO: Execute a mderate compliance scan 
 
 ## Table Of Contents
 
@@ -76,21 +76,21 @@ oc get catalogsource redhat-marketplace -n openshift-marketplace
 ```
 
 #### Create `OperatorGroup`
-An Operator group, defined by an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html)  object, selects target namespaces in which to generate required RBAC access `for all Operators in the same namespace as the Operator group.
+An Operator group, defined by an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html)  object, selects target namespaces in which to generate required RBAC access for all Operators in the same namespace as the Operator group.
 
 The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. For our exercise we will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `fisma-moderate` namespace.
 
 **Create** [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object:
 
 ```bash
-oc create -n fisma-moderate -f- <<EOF
+oc apply -n fisma-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: fisma-moderate-operator-group
+  name: fisma-moderate-compliance-operator
 spec:
   targetNamespaces:
-  - fisma-moderate   
+  - fisma-moderate
 EOF
 ```
 
@@ -106,16 +106,19 @@ oc get OperatorGroup -n fisma-moderate -oyaml fisma-moderate-operator-group | le
 **Create** a new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object:
 
 ```bash
-oc create -n fisma-moderate -f- <<EOF
+oc apply -n fisma-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: fisma-moderate-subscription
+  namespace: fisma-moderate
 spec:
   channel: "4.6"
+  installPlanApproval: Automatic
   name: compliance-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
+  startingCSV: compliance-operator.v0.1.17  
 EOF
 ```
 
