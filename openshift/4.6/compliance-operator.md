@@ -163,68 +163,6 @@ After we have installed the [compliance-operator](https://github.com/openshift/c
 oc get -n fisma-moderate profiles.compliance
 ```
 
-### Create `ScanSettings`
-[ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) fall into two basic categories - platform and node. The platform scans are for the cluster itself, in the listing above they're the ocp4-* scans, while the purpose of the node scans is to scan the actual cluster nodes. All the rhcos4-* profiles above can be used to create node scans.
-
-**Create** the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
-
-```bash
-oc create -n fisma-moderate -f- <<EOF
-apiVersion: compliance.openshift.io/v1alpha1
-kind: ScanSetting
-metadata:
-  name: fisma-moderate-scan-setting
-rawResultStorage:
-  rotation: 3
-  size: 1Gi
-roles:
-- worker
-- master
-schedule: '0 1 * * *'
-EOF
-```
-
-**Inspect** the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
-
-```bash
-oc get scansetting -n fisma-moderate fisma-moderate-scan-setting -o yaml | less
-```
-
-### Create `ScanSettingBinding` 
-Before using one, you will need to configure how the scans will run. We can do this with the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) custom resource.
-
-To run rhcos4-moderate and ocp4-moderate profiles, we will create the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) objects for each type.
-
-**Create** Node type [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
-
-```bash
-oc create -n fisma-moderate -f- <<EOF
-apiVersion: compliance.openshift.io/v1alpha1
-kind: ScanSettingBinding
-metadata:
-  name: fisma-moderate-scan-setting-binding
-profiles:
-  # Node Type
-  - name: rhcos4-moderate
-    kind: Profile
-    apiGroup: compliance.openshift.io/v1alpha1
-  # Platform Type 
-  - name: ocp4-moderate
-    kind: Profile
-    apiGroup: compliance.openshift.io/v1alpha1
-settingsRef:
-  name: fisma-moderate-scan-setting
-  kind: ScanSetting
-  apiGroup: compliance.openshift.io/v1alpha1
-EOF
-```
-
-**Inspect** the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
-
-```bash
-oc get scansettingbinding -n fisma-moderate fisma-moderate-scan-setting-binding -o yaml | less
-```
-
 ### Create `ComplianceSuite`
 [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) is a collection of [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects, each of which describes a scan. 
 
@@ -263,7 +201,7 @@ Note that [ComplianceSuite](https://github.com/openshift/compliance-operator/blo
 oc get events -n fisma-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=fisma-moderate-compliance-suite
 ```
 
-### Inspect `ComplianceScan` 
+### Inspect Generated `ComplianceScan` 
 Similarly to `Pods` in Kubernetes, a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is the base object that the compliance-operator introduces. Also similarly to `Pods`, you normally don't want to create a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object directly, and would instead want a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to manage it.
 
 When a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is created by a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object), the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is owned by it. Deleting a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object will result in deleting all the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects that it created.
@@ -284,6 +222,37 @@ oc get compliancescan -n fisma-moderate fisma-moderate-ocp4-scan
 oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=fisma-moderate-ocp4-scan
 ```
 
+### Inspect Generated `ScanSettings`
+[ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) fall into two basic categories - platform and node. The platform scans are for the cluster itself, in the listing above they're the ocp4-* scans, while the purpose of the node scans is to scan the actual cluster nodes. All the rhcos4-* profiles above can be used to create node scans.
+
+**List** the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
+
+```bash
+oc get scansetting -n fisma-moderate
+```
+
+**Inspect** the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
+
+```bash
+oc get scansetting -n fisma-moderate -oyaml | less
+```
+
+### Inspect Generated `ScanSettingBinding` 
+Before using one, you will need to configure how the scans will run. We can do this with the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) custom resource.
+
+To run rhcos4-moderate and ocp4-moderate profiles, we will create the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) objects for each type.
+
+**List** the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
+
+```bash
+oc get scansettingbinding -n fisma-moderate -o yaml
+```
+
+**Inspect** the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
+
+```bash
+oc get scansettingbinding -n fisma-moderate fisma-moderate-scan-setting-binding -o yaml | less
+```
 
 
 
