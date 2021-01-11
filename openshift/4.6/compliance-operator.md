@@ -142,13 +142,25 @@ oc get csv -n fisma-moderate
 oc get ip -n fisma-moderate
 ```
 
+At this point, the operator should be up and running.
+
+**View** deployment:
+```bash
+oc get deploy -n fisma-moderate
+```
+
+**View** the running pods:
+```bash
+oc get pods -n fisma-moderate
+```
+
 ## Create `Scans` 
 After we have installed the [compliance-operator](https://github.com/openshift/compliance-operator) in the `fisma-moderate` namespace we are ready to start creating scans.
 
 **View** the out-of-the-box [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects that are part of the [compliance-operator](https://github.com/openshift/compliance-operator) installation using the following command:
 
 ```bash
-oc get -n openshift-operators profiles.compliance
+oc get -n fisma-moderate profiles.compliance
 ```
 
 ### Create `ScanSettings`
