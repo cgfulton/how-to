@@ -154,6 +154,24 @@ oc get deploy -n fisma-moderate
 oc get pods -n fisma-moderate
 ```
 
+### Inspect `ProfileBundle` Object
+OpenSCAP content for consumption by the Compliance Operator is distributed
+as container images. In order to make it easier for users to discover what
+profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) can be then either used directly or further customized using a [TailoredProfile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-tailoredprofile-object) object.
+
+Verify ProfileBundle objects:
+
+```bash
+oc get profilebundle -n fisma-moderate
+```
+
+### Inspct `Profile` Object
+The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects are never created manually, but rather based on a
+[ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object, typically one [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) would result in
+several [Profiles](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object). The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object contains parsed out details about
+an OpenSCAP profile such as its XCCDF identifier, what kind of checks the
+profile contains (node vs platform) and for what system or platform.
+
 ## Create `Scans` 
 After we have installed the [compliance-operator](https://github.com/openshift/compliance-operator) in the `fisma-moderate` namespace we are ready to start creating scans.
 
@@ -201,6 +219,13 @@ Note that [ComplianceSuite](https://github.com/openshift/compliance-operator/blo
 oc get events -n fisma-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=fisma-moderate-compliance-suite
 ```
 
+At this point the operator reconciles the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) custom resource, we can use this to track the progress of our scans using the following command:
+
+**View [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects:
+
+```bash
+oc get -n fisma-moderate compliancesuites -w
+```
 ### Inspect Generated `ComplianceScan` 
 Similarly to `Pods` in Kubernetes, a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is the base object that the compliance-operator introduces. Also similarly to `Pods`, you normally don't want to create a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object directly, and would instead want a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to manage it.
 
@@ -210,7 +235,7 @@ Once a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/ma
 
 Note that [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects will generate events which you can fetch programmatically. 
 
-**View** [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object:
+**List** [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object:
 
 ```bash
 oc get compliancescan -n fisma-moderate fisma-moderate-ocp4-scan
@@ -255,69 +280,40 @@ oc get scansettingbinding -n fisma-moderate fisma-moderate-scan-setting-binding 
 ```
 
 
-
-# TODO
-
-
-### The `ProfileBundle` Object
-OpenSCAP content for consumption by the Compliance Operator is distributed
-as container images. In order to make it easier for users to discover what
-profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) can be then either used directly or further customized using a [TailoredProfile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-tailoredprofile-object) object.
-
-Verify ProfileBundle objects:
-
-```bash
-oc get profilebundle -n fisma-moderate
-```
-
-### The `Profile` Object
-The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects are never created manually, but rather based on a
-[ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object, typically one [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) would result in
-several [Profiles](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object). The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object contains parsed out details about
-an OpenSCAP profile such as its XCCDF identifier, what kind of checks the
-profile contains (node vs platform) and for what system or platform.
-
-#### Reconcile `ComplianceSuite`
-At this point the operator reconciles a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) custom resource, we can use this to track the progress of our scan.
-
-Reconcile scan:
-
-```bash
-oc get -n fisma-moderate compliancesuites -w
-```
-
-#### View `Scan Pods`
-This subsequently creates the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects for the suite. The [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object then creates scan pods that run on each node in the cluster. The scan pods execute openscap-chroot on every node and eventually report the results. The scan takes several minutes to complete.
+The [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object then creates scan pods that run on each node in the cluster. The scan pods execute openscap-chroot on every node and eventually report the results. The scan takes several minutes to complete.
 
 If you're interested in seeing the individual pods, you can do so with:
+
+**List** scan pods:
 
 ```bash
 oc get -n fisma-moderate pods -w
 ```
 
-### View `ComplianceCheckResult` Object
-
 To get all the [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) results from the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object by using the label 
 `compliance.openshift.io/suite` with the following commad:
+
+**View** [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object):
 
 ```bash
 oc get compliancesuites -n fisma-moderate -l compliance.openshift.io/suite=fisma-moderate-suite
 ```
 
-### The `ComplianceRemediation` Object
-
-#### View Iitial `Compliance Remediation`
+### Compliance Remediation
 When the scan is done, the operator changes the state of the ComplianceSuite object to "Done" and all the pods are transition to the "Completed" state. You can then check the [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) that were found with:
+
+**List** [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object):
 
 ```bash
 oc get -n fisma-moderate complianceremediations
 ```
 
-#### Apply `Compliance Remediation`
-To apply a remediation, edit that object and set its Apply attribute to true:
+To apply a remediation, edit that object and set its Apply attribute to true.
+
+**Apply** [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object):
 
 ```bash
-oc edit -n fisma-moderate complianceremediation/workers-scan-no-direct-root-logins
+oc edit -n fisma-moderate complianceremediation/<compliance-rule-name>
 ```
 
 #### View Applied `Compliance Remediation`
