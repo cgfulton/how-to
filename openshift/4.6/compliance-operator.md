@@ -43,7 +43,8 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 #### Operator Availability
 We need to ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster.
 
-**Verify** the [compliance-operator](https://github.com/openshift/compliance-operator) availability using the following command:
+##### Verify
+Verify the [compliance-operator](https://github.com/openshift/compliance-operator) availability using the following command:
 
 ```bash
 oc get packagemanifests -n openshift-marketplace | grep compliance-operator
@@ -52,7 +53,8 @@ oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 #### Install Modes and Channels
 Inspect the [compliance-operator](https://github.com/openshift/compliance-operator) package manifest to view the available `Install Modes` and `Channels`. For this exercise we will be installing the operator in a `SingleNamespace` type. 
 
-**Inspect** the supported install modes and channels supported using the following command:
+##### Inspect Install Modes and Channels
+Inspect the supported install modes and channels supported using the following command:
 
 ```bash
 oc describe packagemanifests compliance-operator -n openshift-marketplace
@@ -61,16 +63,18 @@ oc describe packagemanifests compliance-operator -n openshift-marketplace
 #### Namespace
 For this exercise we will be creating a unique namespace to deploy the [compliance-operator](https://github.com/openshift/compliance-operator).
 
-**Create** the `fisma-moderate` namespace  using the following command:
+##### Create Namespace
+Create the `fisma-moderate` namespace  using the following command:
 
 ```bash
 oc new-project fisma-moderate
 ```
 
-#### Cataloge Source
+#### Catalog Source
 A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator. 
 
-**View** the available [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace:
+##### Inspect CatalogSource
+Inspect the available [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace:
 
 ```bash
 oc get catalogsource redhat-marketplace -n openshift-marketplace
@@ -81,7 +85,8 @@ An Operator group, defined by an [OperatorGroup](https://docs.openshift.com/cont
 
 The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. For our exercise we will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `fisma-moderate` namespace.
 
-**Create** an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object:
+##### Create OperatorGroup
+Create an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 
 ```bash
 oc apply -n fisma-moderate -f- <<EOF
@@ -95,7 +100,8 @@ spec:
 EOF
 ```
 
-**Inspect** the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object.
+##### Inspect OperatorGroup
+Inspect the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 
 ```bash
 oc get OperatorGroup -n fisma-moderate -oyaml fisma-moderate-operator-group | less
@@ -104,7 +110,8 @@ oc get OperatorGroup -n fisma-moderate -oyaml fisma-moderate-operator-group | le
 #### Subscription
 [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) keeps operators up to date by tracking changes to [Catalogs](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html).
 
-**Create** a new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object:
+##### Create Subscription
+Create a new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 
 ```bash
 oc apply -n fisma-moderate -f- <<EOF
@@ -123,22 +130,25 @@ spec:
 EOF
 ```
 
-**Inspect** the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object:
+##### Inspect Subscription
+Inspect newly created the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 
 ```bash
-oc get subscription fisma-moderate-subscription -n fisma-moderate -oyaml | less
+oc describe subscription fisma-moderate-subscription -n fisma-moderate | less
 ```
 
 #### Deployment
 At this point, [OpenShift Lifecycle Manager](https://docs.openshift.com/container-platform/4.6/operators/understanding/olm/olm-understanding-olm.html) is now aware of the selected Operator. A cluster service version (CSV) for the Operator should appear in the target namespace, and APIs provided by the Operator should be available for creation.
 
-**List** the [compliance-operator](https://github.com/openshift/compliance-operator) version:
+##### List Cluster Service Version
+List the [Cluster Service Version](https://docs.openshift.com/container-platform/4.6/operators/operator_sdk/osdk-generating-csvs.html) version using the following command:
 
 ```bash
-oc get csv -n fisma-moderate
+oc get clusterserviceversion -n fisma-moderate
 ```
 
-**List** the [compliance-operator](https://github.com/openshift/compliance-operator) approval:
+##### List 
+List the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
 
 ```bash
 oc get ip -n fisma-moderate
