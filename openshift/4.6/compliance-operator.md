@@ -290,8 +290,9 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 [Demo Magic](https://github.com/paxtonhare/demo-magic)
 
 ## Demo
-Add the demo-magic.sh shell script to your environment by placing it in your execution directory.
+Copy and execute each of the individual shell scipts below in a terminal window from the current working directory.
 
+Place the demo-magic.sh shell script in the current working directory.
 <details>
   <summary>demo-magic.sh</summary>
   
@@ -513,11 +514,11 @@ while getopts ":dhncw:" opt; do
 done
 EOT
 ```
-
 </details>
 
+Execute the demo script from the commandline terminal.
 <details>
-  <summary>Inline demo script</summary>
+  <summary>Demo Script</summary>
 ```bash
 sh <<EOF
 #!/bin/bash
