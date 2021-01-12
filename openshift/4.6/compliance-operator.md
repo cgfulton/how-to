@@ -290,12 +290,10 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 [Demo Magic](https://github.com/paxtonhare/demo-magic)
 
 ## Demo
-
-### demo-magic.sh
 Add the demo-magic.sh shell script to your environment by placing it in your execution directory.
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>demo-magic.sh</summary>
   
 ```bash
 cat <<EOT >> demo-magic.sh
@@ -518,8 +516,21 @@ EOT
 
 </details>
 
+<details>
+  <summary>Inline demo script</summary>
 ```bash
 sh <<EOF
-echo "text"
+#!/bin/bash
+
+########################
+# include the magic
+########################
+. demo-magic.sh
+
+# hide the evidence
+clear
+
+# Put your stuff here
 EOF
 ```
+</details>
