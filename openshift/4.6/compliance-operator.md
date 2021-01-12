@@ -11,8 +11,8 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [Create Operator Group](#create-operator-group)
   - [Create Subscription](#create-subscription)
   - [View Deployment](#view-deployment)
-    - [View Profile](#view-profile)
-    - [View Profile Bundle](#view-profile-bundle)
+    - [List Profile](#list-profile)
+    - [List Profile Bundle](#list-profile-bundle)
 - [Create Scans](#Create-scans)
   - [Create Compliance Suite](#create-compliance-suite)
   - [View Compliance Scan](#view-compliance-scan)
@@ -40,9 +40,9 @@ oc describe packagemanifests compliance-operator -n openshift-marketplace
 ```
 
 ### Create Namespace
-For this exercise we will be creating a unique namespace, `how-to-moderate`, to deploy the [compliance-operator](https://github.com/openshift/compliance-operator).
+We will be creating a new namespace, `how-to-moderate`, to deploy the [compliance-operator](https://github.com/openshift/compliance-operator).
 
-Create the `how-to-moderate` namespace  using the following command:
+Create the namespace using the following command:
 ```bash
 oc new-project how-to-moderate
 ```
@@ -50,7 +50,7 @@ oc new-project how-to-moderate
 ### View Catalog Source
 A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of [Cluster Service Versions](https://docs.openshift.com/container-platform/4.6/operators/operator_sdk/osdk-generating-csvs.html), [Custom Resource Definitions](https://docs.openshift.com/container-platform/4.6/operators/understanding/crds/crd-extending-api-with-crds.html#crd-extending-api-with-crds), and operator packages. For this how-to we will be using the Red Hat supported version `4.6` of the operator. 
 
-Describe the `redhat-marketplace` [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object in the `openshift-marketplace` namespace using the following command:
+View the `redhat-marketplace` [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object in the `openshift-marketplace` namespace using the following command:
 ```bash
 oc describe catalogsource redhat-marketplace -n openshift-marketplace | less
 ```
@@ -58,7 +58,7 @@ oc describe catalogsource redhat-marketplace -n openshift-marketplace | less
 ### Create Operator Group
 An Operator group, defined by an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html)  object, selects target namespaces in which to generate required RBAC access for all Operators in the same namespace as the Operator group.
 
-The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. For our exercise we will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `how-to-moderate` namespace.
+The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. We will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `how-to-moderate` namespace.
 
 Create a new [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
@@ -73,15 +73,15 @@ spec:
 EOF
 ```
 
-Describe the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
+View the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
 oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less
 ```
 
 ### Create Subscription
-[Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) keeps operators up to date by tracking changes to [Catalogs](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html).
+[Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object keep operators up to date by tracking changes to [Catalogs](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html).
 
-Create a new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
+Create [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
 oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -98,7 +98,8 @@ spec:
   startingCSV: compliance-operator.v0.1.17  
 EOF
 ```
-View the new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
+
+View the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
 oc describe subscription how-to-moderate-subscription -n how-to-moderate | less
 ```
@@ -129,15 +130,15 @@ List the Running `Pods` using the following command:
 oc get pods -n how-to-moderate
 ```
 
-#### View Profile Bundle
-OpenSCAP content for consumption by the Compliance Operator is distributedas container images. In order to make it easier for users to discover what profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) can be then either used directly or further customized using a [TailoredProfile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-tailoredprofile-object) object.
+#### List Profile Bundle
+OpenSCAP content for consumption by the Compliance Operator is distributed as container images. In order to make it easier for users to discover what profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. 
 
 List the [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) using the following command:
 ```bash
 oc get profilebundle -n how-to-moderate
 ```
 
-####  View Profile
+####  List Profile
 The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects are never created manually, but rather based on a
 [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object, typically one [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) would result in
 several [Profiles](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object). The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object contains parsed out details about
