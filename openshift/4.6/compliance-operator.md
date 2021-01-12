@@ -21,7 +21,7 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
 - [Apply Compliance Remediation](#apply-compliance-remediation)
   
 ## Installation
-The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized step-by-step instructions.
+The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized operator installation instructions.
 
 ### Prerequisites
 * Access to an OpenShift Container Platform cluster using an account with `cluster-admin` permissions.
@@ -29,20 +29,18 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 * Assuming the `oc command` installed on your local system.
 
 #### View Operator Availability
-We need to ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster.
-
-Verify the [compliance-operator](https://github.com/openshift/compliance-operator) availability using the following command:
+To ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster verify the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
 ```bash
 oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 ``` 
 
-View the supported install modes and channels supported using the following command:
+View the supported install modes and channels to see namespaces tenacy supported by the operator using the following command:
 ```bash
 oc describe packagemanifests compliance-operator -n openshift-marketplace
 ```
 
 ### Create Namespace
-For this exercise we will be creating a unique namespace to deploy the [compliance-operator](https://github.com/openshift/compliance-operator).
+For this exercise we will be creating a unique namespace, `how-to-moderate`, to deploy the [compliance-operator](https://github.com/openshift/compliance-operator).
 
 Create the `how-to-moderate` namespace  using the following command:
 ```bash
@@ -50,11 +48,11 @@ oc new-project how-to-moderate
 ```
 
 ### View Catalog Source
-A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator. 
+A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of [Cluster Service Versions](https://docs.openshift.com/container-platform/4.6/operators/operator_sdk/osdk-generating-csvs.html), [Custom Resource Definitions](https://docs.openshift.com/container-platform/4.6/operators/understanding/crds/crd-extending-api-with-crds.html#crd-extending-api-with-crds), and operator packages. For this how-to we will be using the Red Hat supported version `4.6` of the operator. 
 
-View the [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace using the following command:
+Describe the `redhat-marketplace` [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object in the `openshift-marketplace` namespace using the following command:
 ```bash
-oc get catalogsource redhat-marketplace -n openshift-marketplace
+oc describe catalogsource redhat-marketplace -n openshift-marketplace | less
 ```
 
 ### Create Operator Group
@@ -75,9 +73,9 @@ spec:
 EOF
 ```
 
-View the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
+Describe the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
-oc get OperatorGroup -n how-to-moderate -oyaml how-to-moderate-operator-group | less
+oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less
 ```
 
 ### Create Subscription
