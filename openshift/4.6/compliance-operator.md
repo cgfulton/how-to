@@ -13,26 +13,13 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [View Deployment](#view-deployment)
     - [View Profile](#view-profile)
     - [View Profile Bundle](#view-profile-bundle)
-- [Scans](#scans)
+- [Create Scans](#Create-scans)
   - [Create Compliance Suite](#create-compliance-suite)
   - [View Compliance Scan](#view-compliance-scan)
   - [View Scan Settings](#view-scan-settings)
   - [View Scan Setting Binding](#view-scan-setting-binding)
+- [Apply Compliance Remediation](#apply-compliance-remediation)
   
-  
-  
-# TODO
-```text
-
-//Reconcile ComplianceSuite
-View Scan Pods
-View ComplianceCheckResult Object
-The ComplianceRemediation Object
-View Iitial Compliance Remediation
-Apply Compliance Remediation
-View Applied Compliance Remediation
-```
-
 ## Installation
 The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized step-by-step instructions.
 
@@ -273,7 +260,7 @@ View[ComplianceCheckResult](https://github.com/openshift/compliance-operator/blo
 oc get compliancesuites -n fisma-moderate -l compliance.openshift.io/suite=fisma-moderate-suite | less
 ```
 
-### Compliance Remediation
+### Apply Compliance Remediation
 When the scan is done, the operator changes the state of the ComplianceSuite object to "Done" and all the pods are transition to the "Completed" state. You can then check the [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) that were found with:
 
 List [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) using the following command:
