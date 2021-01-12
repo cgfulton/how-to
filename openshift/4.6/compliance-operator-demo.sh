@@ -13,7 +13,7 @@
 #
 # speed at which to simulate typing. bigger num = faster
 #
-# TYPE_SPEED=80
+# TYPE_SPEED=100
 
 #
 # custom prompt
