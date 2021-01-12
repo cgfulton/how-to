@@ -10,6 +10,9 @@
 # Configure the options
 ########################
 
+NAMESPACE=gfulton-${NAMESPACE}
+
+
 #
 # speed at which to simulate typing. bigger num = faster
 #
@@ -25,7 +28,7 @@ DEMO_PROMPT="${BLACK}➜ ${CYAN}\W "
 # text color
 DEMO_CMD_COLOR=$BLACK
 
-oc delete project how-to-moderate
+oc delete project $NAMESPACE
 
 # hide the evidence
 clear
@@ -41,7 +44,7 @@ pe ""
 clear
 
 p "Create Namespace"
-pe "oc new-project how-to-moderate"
+pe "oc new-project ${NAMESPACE}"
 pe ""
 clear
 
@@ -51,27 +54,27 @@ pe ""
 clear
 
 p "Create and Inspect Operator Group"
-pe "oc apply -n how-to-moderate -f- <<EOF
+pe "oc apply -n ${NAMESPACE} -f- <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: how-to-moderate-compliance-operator
+  name: ${NAMESPACE}-compliance-operator
 spec:
   targetNamespaces:
-  - how-to-moderate
+  - ${NAMESPACE}
 EOF"
-pe "oc get OperatorGroup -n how-to-moderate"
-pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-compliance-operator | less"
+pe "oc get OperatorGroup -n ${NAMESPACE}"
+pe "oc describe OperatorGroup -n ${NAMESPACE} ${NAMESPACE}-compliance-operator | less"
 pe ""
 clear
 
 p "Create and Inspect Subscription"
-pe "oc apply -n how-to-moderate -f- <<EOF
+pe "oc apply -n ${NAMESPACE} -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: how-to-moderate-subscription
-  namespace: how-to-moderate
+  name: ${NAMESPACE}-subscription
+  namespace: ${NAMESPACE}
 spec:
   channel: '4.6'
   installPlanApproval: Automatic
@@ -80,110 +83,110 @@ spec:
   sourceNamespace: openshift-marketplace
   startingCSV: compliance-operator.v0.1.17  
 EOF"
-pe "oc get subscription -n how-to-moderate"
-pe "oc describe subscription how-to-moderate-subscription -n how-to-moderate | less"
+pe "oc get subscription -n ${NAMESPACE}"
+pe "oc describe subscription ${NAMESPACE}-subscription -n ${NAMESPACE} | less"
 pe ""
 clear
 
 p "List Cluster Version"
-pe "oc get clusterserviceversion -n how-to-moderate"
+pe "oc get clusterserviceversion -n ${NAMESPACE}"
 pe ""
 clear
 
 p "List and Inspect Install Plan"
-pe "oc describe installplan -n how-to-moderate"
-pe "oc describe installplan -n how-to-moderate | less"
+pe "oc describe installplan -n ${NAMESPACE}"
+pe "oc describe installplan -n ${NAMESPACE} | less"
 pe ""
 clear
 
 p "List Deployment"
-pe "oc get deploy -n how-to-moderate"
+pe "oc get deploy -n ${NAMESPACE}"
 pe ""
 clear
 
 p "List Running Pods"
-pe "oc get pods -n how-to-moderate"
+pe "oc get pods -n ${NAMESPACE}"
 pe ""
 clear
 
 p "List Profile Bundle"
-pe "oc get profilebundle -n how-to-moderate"
+pe "oc get profilebundle -n ${NAMESPACE}"
 pe ""
 clear
 
 p "List out-of-the-box Profiles"
-pe "oc get profiles.compliance -n how-to-moderate "
+pe "oc get profiles.compliance -n ${NAMESPACE}"
 pe ""
 clear
 
 p "Create Compliance Suite"
-pe "oc apply -n how-to-moderate -f - <<EOF
+pe "oc apply -n ${NAMESPACE} -f - <<EOF
 apiVersion: compliance.openshift.io/v1alpha1
 kind: ComplianceSuite
 metadata:
-  name: how-to-moderate-compliance-suite
+  name: ${NAMESPACE}-compliance-suite
 spec:
   autoApplyRemediations: false
   schedule: "0 1 * * *"
   scans:
-    - name: how-to-moderate-rhcos4-scan
+    - name: ${NAMESPACE}-rhcos4-scan
       scanType: Node
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-rhcos4-ds.xml
       nodeSelector:
         node-role.kubernetes.io/worker: ""
-    - name: how-to-moderate-ocp4-scan
+    - name: ${NAMESPACE}-ocp4-scan
       scanType: Platform
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-ocp4-ds.xml
       nodeSelector:
         node-role.kubernetes.io/worker: ""
 EOF"
-pe "oc get compliancescan -n how-to-moderate"
-pe "oc describe compliancescan -n how-to-moderate how-to-moderate-ocp4-scan | less"
+pe "oc get compliancescan -n ${NAMESPACE}"
+pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan | less"
 pe ""
 clear
 
 p "List Compliance Suite Events"
-pe "oc get events -n how-to-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=how-to-moderate-compliance-suite"
+pe "oc get events -n ${NAMESPACE} --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=${NAMESPACE}-compliance-suite"
 pe "clear"
 
 p "Watch Compliance Suite Progress"
-pe "oc get -n how-to-moderate compliancesuites -w"
+pe "oc get -n ${NAMESPACE} compliancesuites -w"
 pe "clear"
 
 p "List Compliance Scan Events"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=how-to-moderate-ocp4-scan"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-ocp4-scan"
 pe ""
 clear
 
 p "List and Inspect Scan Settings"
-pe "oc get scansetting -n how-to-moderate"
-pe "oc get scansetting -n how-to-moderate -oyaml | less"
+pe "oc get scansetting -n ${NAMESPACE}"
+pe "oc get scansetting -n ${NAMESPACE} -oyaml | less"
 pe "clear"
 
 p "List and Inspect Scan Setting Binding"
-pe "oc get scansettingbinding -n how-to-moderate"
-pe "oc get scansettingbinding -n how-to-moderate -o yaml | less"
+pe "oc get scansettingbinding -n ${NAMESPACE}"
+pe "oc get scansettingbinding -n ${NAMESPACE} -o yaml | less"
 pe ""
 clear
 
 p "Watch Scan Pods"
-pe "oc get -n how-to-moderate pods -w"
+pe "oc get -n ${NAMESPACE} pods -w"
 pe ""
 clear
 
 p "List Compliance Check Result"
-pe "oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-to-moderate-suite | less"
+pe "oc get compliancesuites -n ${NAMESPACE} -l compliance.openshift.io/suite=${NAMESPACE}compliance-suite | less"
 pe "clear"
 
 p "List Compliance Remediation"
-pe "oc get -n how-to-moderate complianceremediations"
+pe "oc get -n ${NAMESPACE} complianceremediations"
 pe ""
 clear
 
 p "Apply Compliance Remediation"
-p "oc edit -n how-to-moderate complianceremediation/<compliance-rule-name>"
+p "oc edit -n ${NAMESPACE} complianceremediation/<compliance-rule-name>"
 cmd
 
 
