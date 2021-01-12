@@ -290,10 +290,10 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 [Demo Magic](https://github.com/paxtonhare/demo-magic)
 
 ## Demo
-Copy and execute each of the individual shell scipts below in a terminal window from the current working directory.
+Execute each shell scipts in a common directory to run the demo.
 
 <details>
-  <summary>demo-magic.sh</summary>
+  <summary>Demo Magic Functions</summary>
   
 ```bash
 cat <<EOT >> demo-magic.sh
