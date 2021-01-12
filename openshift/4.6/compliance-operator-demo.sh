@@ -75,29 +75,54 @@ pe "clear"
 
 pei "echo 'List Cluster Version'"
 pe "oc get clusterserviceversion -n how-to-moderate"
-pe "clear"
+pei "clear"
 
 pei "echo 'View Install Plan'"
 pe "oc describe installplan -n how-to-moderate | less"
-pe "clear"
+pei "clear"
 
 pei "echo 'View Deployment'"
 pe "oc get deploy -n how-to-moderate"
-pe "clear"
+pei "clear"
 
 pei "echo 'List Running Pods'"
 pe "oc get pods -n how-to-moderate"
-pe "clear"
+pei "clear"
 
-pei "echo 'List ProfileBundle'"
+pei "echo 'List Profile Bundle'"
 pe "oc get profilebundle -n how-to-moderate"
-pe "clear"
+pei "clear"
 
 pei "echo 'List out-of-the-box Profiles'"
 pe "oc get -n how-to-moderate profiles.compliance"
-pe "clear"
+pei "clear"
 
-pei "echo ''"
+pei "echo 'Create Compliance Suite'"
+pe "oc apply -n how-to-moderate -f - <<EOF
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ComplianceSuite
+metadata:
+  name: how-to-moderate-compliance-suite
+spec:
+  autoApplyRemediations: false
+  schedule: "0 1 * * *"
+  scans:
+    - name: how-to-moderate-rhcos4-scan
+      scanType: Node
+      profile: xccdf_org.ssgproject.content_profile_moderate
+      content: ssg-rhcos4-ds.xml
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
+    - name: how-to-moderate-ocp4-scan
+      scanType: Platform
+      profile: xccdf_org.ssgproject.content_profile_moderate
+      content: ssg-ocp4-ds.xml
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
+EOF"
+pei "clear"
+
+
 
 
 # show a prompt so as not to reveal our true nature after
