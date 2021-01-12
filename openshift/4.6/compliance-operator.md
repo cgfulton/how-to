@@ -291,7 +291,7 @@ Please note that the walk through requires `Curl` and `Pipe Viewer` to be instal
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
-curl https://raw.githubusercontent.com/cgfulton/how-to/cgfulton-patch-1/openshift/4.6/compliance-operator-demo.sh \
+curl https://raw.githubusercontent.com/cgfulton/how-to/main/openshift/4.6/compliance-operator-demo.sh \
      --output compliance-operator-demo.sh
 sh ./compliance-operator-demo.sh
 ```
