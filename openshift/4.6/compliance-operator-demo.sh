@@ -123,11 +123,12 @@ EOF"
 pe "clear"
 
 pei "echo 'View Compliance Suite Events'"
-pe "oc get events -n fisma-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=fisma-moderate-compliance-suite"
+pe "oc get events -n how-to-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=how-to-moderate-compliance-suite
+"
 pe "clear"
 
 pei "echo 'View Compliance Suite Progress'"
-pe "oc get -n fisma-moderate compliancesuites -w"
+pe "oc get -n how-to-moderate compliancesuites -w"
 pe "clear"
 
 pei "echo 'View Compliance Scan'"
