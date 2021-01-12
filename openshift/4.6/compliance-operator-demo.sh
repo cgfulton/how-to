@@ -45,7 +45,7 @@ pe "oc new-project how-to-moderate"
 pe ""
 clear
 
-p "Inspect Catalog Source"
+p "Inspect redhat-marketplace Catalog Source"
 pe "oc describe catalogsource redhat-marketplace -n openshift-marketplace | less"
 pe ""
 clear
