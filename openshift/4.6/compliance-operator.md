@@ -288,6 +288,9 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 
 ## Guided Walk Through
 Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts into the current working directory. Use the following commands to download the scripts and execute the walk through:
+
+> Demo Magic requires pv, Pipe Viewer, to be installed on your system.
+
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
