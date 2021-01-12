@@ -60,7 +60,11 @@ spec:
   targetNamespaces:
   - how-to-moderate
 EOF"
+pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less"
+pe ""
 clear
+
+
 
 pei "echo 'Create Subscription'"
 pe "oc apply -n how-to-moderate -f- <<EOF
