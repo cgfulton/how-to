@@ -28,7 +28,7 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 # hide the evidence
 clear
 
-pe "View Operator Availability"
+p "View Operator Availability"
 pe "oc get packagemanifests -n openshift-marketplace | grep compliance-operator"
 pe ""
 clear
