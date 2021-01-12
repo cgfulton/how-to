@@ -50,7 +50,7 @@ pe "oc describe catalogsource redhat-marketplace -n openshift-marketplace | less
 pe ""
 clear
 
-p "Create Operator Group"
+p "Create and Inspect Operator Group"
 pe "oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
@@ -60,16 +60,12 @@ spec:
   targetNamespaces:
   - how-to-moderate
 EOF"
-pe ""
-clear
-
-p "List and Inspect Operator Group"
 pe "oc get OperatorGroup -n how-to-moderate"
 pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-compliance-operator | less"
 pe ""
 clear
 
-pe "Create Subscription"
+pe "Create and Inspect Subscription"
 pe "oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -84,10 +80,6 @@ spec:
   sourceNamespace: openshift-marketplace
   startingCSV: compliance-operator.v0.1.17  
 EOF"
-pe ""
-clear
-
-p "List and Inspect Subscription"
 pe "oc get subscription -n how-to-moderate"
 pe "oc describe subscription how-to-moderate-subscription -n how-to-moderate | less"
 pe ""
