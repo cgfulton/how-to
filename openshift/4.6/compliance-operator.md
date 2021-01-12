@@ -285,3 +285,5 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 [Compliance Operator Git Repository](https://github.com/openshift/compliance-operator)
 
 [Compliance Operator OpenShift Documentation](https://docs.openshift.com/container-platform/4.6/security/compliance_operator/compliance-operator-understanding.html)
+
+[Demo Magic](https://github.com/paxtonhare/demo-magic)
