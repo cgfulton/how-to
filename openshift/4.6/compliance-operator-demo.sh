@@ -130,6 +130,33 @@ pei "echo 'View Compliance Suite Progress'"
 pe "oc get -n fisma-moderate compliancesuites -w"
 pe "clear"
 
+pei "echo 'View Compliance Scan'"
+pe "oc get compliancescan -n how-to-moderate how-to-moderate-ocp4-scan"
+pe "clear"
+
+pei "echo 'View Compliance Scan Events'"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=how-to-moderate-ocp4-scan"
+pe "clear"
+
+pei "echo 'List and View Scan Settings'"
+pe "oc get scansetting -n how-to-moderate"
+pe "oc get scansetting -n how-to-moderate -oyaml | less"
+pe "clear"
+
+pei "echo 'List and View Scan Setting Binding'"
+pe "oc get scansettingbinding -n how-to-moderate"
+pe "oc get scansettingbinding -n how-to-moderate -o yaml | less"
+pe "clear"
+
+pei "echo 'Watch Scan Pods'"
+pe "oc get -n how-to-moderate pods -w"
+pe "clear"
+
+
+
+
+
+
 
 # show a prompt so as not to reveal our true nature after
 # the demo has concluded
