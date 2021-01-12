@@ -244,7 +244,7 @@ View the [ScanSetting](https://github.com/openshift/compliance-operator/blob/mas
 oc get scansetting -n fisma-moderate -oyaml | less
 ```
 
-### Generated Scan Setting Binding
+### View Scan Setting Binding
 Before using one, you will need to configure how the scans will run. We can do this with the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) custom resource.
 
 To run rhcos4-moderate and ocp4-moderate profiles, we will create the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) objects for each type.
