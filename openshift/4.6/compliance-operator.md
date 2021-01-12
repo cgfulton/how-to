@@ -175,7 +175,7 @@ The [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/mast
 Create a new [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object with node and platform scans named `fisma-moderate-node-type-scan-setting` and `fisma-moderate-platform-type-scan-setting`:
 
 ```bash
-oc create -n fisma-moderate -f - <<EOF
+oc apply -n fisma-moderate -f - <<EOF
 apiVersion: compliance.openshift.io/v1alpha1
 kind: ComplianceSuite
 metadata:
