@@ -7,11 +7,11 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
     - [View Operator Availability](#view-operator-availability)
     - [View Install Modes and Channels](#view-install-modes-and-channels)
   - [Create Namespace](#create-namespace)
-  - [View Catelog Source](#view-cataloge-source)
+  - [View Catelog Source](#view-catalog-source)
   - [Create Operator Group](#create-operator-group)
   - [Create Subscription](#create-subscription)
   - [View Deployment](#view-deployment)
-  - [View Profile](#list-profile)
+  - [View Profile](#view-profile)
   - [View Profile Bundle](#view-profile-bundle)
 - [Create Scans](#create-scans)
   - [Create Compliance Suite](#create-compliance-suite)
@@ -34,6 +34,7 @@ To ensure that the [compliance-operator](https://github.com/openshift/compliance
 oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 ``` 
 
+#### View Install Modes and Channels
 View the supported install modes and channels to see namespaces tenacy supported by the operator using the following command:
 ```bash
 oc describe packagemanifests compliance-operator -n openshift-marketplace
@@ -290,6 +291,12 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 
 ## Demo
 
+### demo-magic.sh
+Add the demo-magic.sh shell script to your environment by placing it in your execution directory.
+
+<details>
+  <summary>Click to expand</summary>
+  
 ```bash
 cat <<EOT >> demo-magic.sh
 #!/usr/bin/env bash
@@ -508,6 +515,8 @@ while getopts ":dhncw:" opt; do
 done
 EOT
 ```
+
+</details>
 
 ```bash
 sh <<EOF
