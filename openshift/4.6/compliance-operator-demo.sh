@@ -28,23 +28,27 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 # hide the evidence
 clear
 
-p "echo 'View Operator Availability'"
+p "View Operator Availability"
 pe "oc get packagemanifests -n openshift-marketplace | grep compliance-operator"
-pe "clear"
+pe ""
+clear
 
-p "echo 'View Install Modes and Channels'"
+p "View Install Modes and Channels"
 pe "oc describe packagemanifests compliance-operator -n openshift-marketplace"
-pe "clear"
+pe ""
+clear
 
-p "echo 'Create Namespace'"
+p "Create Namespace"
 pe "oc new-project how-to-moderate"
-pe "clear"
+pe ""
+clear
 
 p "echo 'View Catalog Source'"
 pe "oc describe catalogsource redhat-marketplace -n openshift-marketplace | less"
-pe "clear"
+pe ""
+clear
 
-p "echo 'Create Operator Group'"
+p "Create Operator Group"
 pe "oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
@@ -54,7 +58,7 @@ spec:
   targetNamespaces:
   - how-to-moderate
 EOF"
-pe "clear"
+clear
 
 pei "echo 'Create Subscription'"
 pe "oc apply -n how-to-moderate -f- <<EOF
