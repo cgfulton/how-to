@@ -1,5 +1,5 @@
 # HOW-TO: Compliance Operator
-Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a nist moderate compliance scan.
+Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan ocp4 and rhcos4 profiles.
 
 ## Table Of Contents
 - [Installation](#installation)
@@ -44,9 +44,9 @@ oc describe packagemanifests compliance-operator -n openshift-marketplace
 ### Create Namespace
 For this exercise we will be creating a unique namespace to deploy the [compliance-operator](https://github.com/openshift/compliance-operator).
 
-Create the `nist-moderate` namespace  using the following command:
+Create the `how-to-moderate` namespace  using the following command:
 ```bash
-oc new-project nist-moderate
+oc new-project how-to-moderate
 ```
 
 ### View Catalog Source
@@ -60,24 +60,24 @@ oc get catalogsource redhat-marketplace -n openshift-marketplace
 ### Create Operator Group
 An Operator group, defined by an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html)  object, selects target namespaces in which to generate required RBAC access for all Operators in the same namespace as the Operator group.
 
-The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. For our exercise we will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `nist-moderate` namespace.
+The namespace to which you subscribe the Operator must have an [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) that matches the install mode of the Operator. For our exercise we will be installing the [compliance-operator](https://github.com/openshift/compliance-operator) in the `how-to-moderate` namespace.
 
 Create a new [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
-oc apply -n nist-moderate -f- <<EOF
+oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: nist-moderate-compliance-operator
+  name: how-to-moderate-compliance-operator
 spec:
   targetNamespaces:
-  - nist-moderate
+  - how-to-moderate
 EOF
 ```
 
 View the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
-oc get OperatorGroup -n nist-moderate -oyaml nist-moderate-operator-group | less
+oc get OperatorGroup -n how-to-moderate -oyaml how-to-moderate-operator-group | less
 ```
 
 ### Create Subscription
@@ -85,12 +85,12 @@ oc get OperatorGroup -n nist-moderate -oyaml nist-moderate-operator-group | less
 
 Create a new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
-oc apply -n nist-moderate -f- <<EOF
+oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: nist-moderate-subscription
-  namespace: nist-moderate
+  name: how-to-moderate-subscription
+  namespace: how-to-moderate
 spec:
   channel: "4.6"
   installPlanApproval: Automatic
@@ -102,7 +102,7 @@ EOF
 ```
 View the new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
-oc describe subscription nist-moderate-subscription -n nist-moderate | less
+oc describe subscription how-to-moderate-subscription -n how-to-moderate | less
 ```
 
 ### View Deployment
@@ -111,24 +111,24 @@ At this point, [OpenShift Lifecycle Manager](https://docs.openshift.com/containe
 List the [Cluster Service Version](https://docs.openshift.com/container-platform/4.6/operators/operator_sdk/osdk-generating-csvs.html) version using the following command:
 
 ```bash
-oc get clusterserviceversion -n nist-moderate
+oc get clusterserviceversion -n how-to-moderate
 ```
 
 View the `Install Plan` using the following command:
 ```bash
-oc describe installplan -n nist-moderate | less
+oc describe installplan -n how-to-moderate | less
 ```
 
 At this point, the operator should be up and running.
 
 List the `Deployment` using the following command:
 ```bash
-oc get deploy -n nist-moderate
+oc get deploy -n how-to-moderate
 ```
 
 List the Running `Pods` using the following command:
 ```bash
-oc get pods -n nist-moderate
+oc get pods -n how-to-moderate
 ```
 
 #### View Profile Bundle
@@ -136,7 +136,7 @@ OpenSCAP content for consumption by the Compliance Operator is distributedas con
 
 List the [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) using the following command:
 ```bash
-oc get profilebundle -n nist-moderate
+oc get profilebundle -n how-to-moderate
 ```
 
 ####  View Profile
@@ -148,36 +148,36 @@ profile contains (node vs platform) and for what system or platform.
 
 List the out-of-the-box [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects that are part of the [compliance-operator](https://github.com/openshift/compliance-operator) installation and can be listed using the following command:
 ```bash
-oc get -n nist-moderate profiles.compliance
+oc get -n how-to-moderate profiles.compliance
 ```
 
 ## Scans 
-After we have installed the [compliance-operator](https://github.com/openshift/compliance-operator) in the `nist-moderate` namespace we are ready to start creating scans.
+After we have installed the [compliance-operator](https://github.com/openshift/compliance-operator) in the `how-to-moderate` namespace we are ready to start creating scans.
 
 ### Create Compliance Suite
 [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) is a collection of [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects, each of which describes a scan. 
 
 The [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) in the background will create as many [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects as you specify in the `scans` field. The fields will be described in the section referring to [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects.
 
-Create a new [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object with node and platform scans named `nist-moderate-node-type-scan-setting` and `nist-moderate-platform-type-scan-setting`:
+Create a new [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object with node and platform scans named `how-to-moderate-node-type-scan-setting` and `how-to-moderate-platform-type-scan-setting`:
 
 ```bash
-oc apply -n nist-moderate -f - <<EOF
+oc apply -n how-to-moderate -f - <<EOF
 apiVersion: compliance.openshift.io/v1alpha1
 kind: ComplianceSuite
 metadata:
-  name: nist-moderate-compliance-suite
+  name: how-to-moderate-compliance-suite
 spec:
   autoApplyRemediations: false
   schedule: "0 1 * * *"
   scans:
-    - name: nist-moderate-rhcos4-scan
+    - name: how-to-moderate-rhcos4-scan
       scanType: Node
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-rhcos4-ds.xml
       nodeSelector:
         node-role.kubernetes.io/worker: ""
-    - name: nist-moderate-ocp4-scan
+    - name: how-to-moderate-ocp4-scan
       scanType: Platform
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-ocp4-ds.xml
@@ -186,17 +186,17 @@ spec:
 EOF
 ```
 
-Note that [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects will generate events which you can fetch programmatically. To get the events for the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) called `nist-moderate-compliance-suite` use the following command:
+Note that [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects will generate events which you can fetch programmatically. To get the events for the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) called `how-to-moderate-compliance-suite` use the following command:
 
 ```bash
-oc get events -n nist-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=nist-moderate-compliance-suite
+oc get events -n how-to-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=how-to-moderate-compliance-suite
 ```
 
 At this point the operator reconciles the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) custom resource, we can use this to track the progress of our scans using the following command:
 
 Watch the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects:
 ```bash
-oc get -n nist-moderate compliancesuites -w
+oc get -n how-to-moderate compliancesuites -w
 ```
 
 ### View Compliance Scan
@@ -210,12 +210,12 @@ Note that [ComplianceScan](https://github.com/openshift/compliance-operator/blob
 
 View [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object:
 ```bash
-oc get compliancescan -n nist-moderate nist-moderate-ocp4-scan
+oc get compliancescan -n how-to-moderate how-to-moderate-ocp4-scan
 ```
 
-View the events for the scan called `nist-moderate-ocp4-scan` use the following command:
+View the events for the scan called `how-to-moderate-ocp4-scan` use the following command:
 ```bash
-oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=nist-moderate-ocp4-scan
+oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=how-to-moderate-ocp4-scan
 ```
 
 ### View Scan Settings
@@ -223,12 +223,12 @@ oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject
 
 List the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
 ```bash
-oc get scansetting -n nist-moderate
+oc get scansetting -n how-to-moderate
 ```
 
 View the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
 ```bash
-oc get scansetting -n nist-moderate -oyaml | less
+oc get scansetting -n how-to-moderate -oyaml | less
 ```
 
 ### View Scan Setting Binding
@@ -238,26 +238,26 @@ To run rhcos4-moderate and ocp4-moderate profiles, we will create the [ScanSetti
 
 List the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object using the following command:
 ```bash
-oc get scansettingbinding -n nist-moderate 
+oc get scansettingbinding -n how-to-moderate 
 ```
 
 View the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object using the following command:
 ```bash
-oc get scansettingbinding -n nist-moderate -o yaml | less
+oc get scansettingbinding -n how-to-moderate -o yaml | less
 ```
 
 The [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object then creates scan pods that run on each node in the cluster. The scan pods execute openscap-chroot on every node and eventually report the results. The scan takes several minutes to complete.
 
 List the scan pods of you're interested in seeing the individual pods using the following command:
 ```bash
-oc get -n nist-moderate pods -w
+oc get -n how-to-moderate pods -w
 ```
 
 To get all the [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) results from the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object by using the label.
 
 View[ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) using the following command:
 ```bash
-oc get compliancesuites -n nist-moderate -l compliance.openshift.io/suite=nist-moderate-suite | less
+oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-to-moderate-suite | less
 ```
 
 ### Apply Compliance Remediation
@@ -265,12 +265,12 @@ When the scan is done, the operator changes the state of the ComplianceSuite obj
 
 List [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) using the following command:
 ```bash
-oc get -n nist-moderate complianceremediations
+oc get -n how-to-moderate complianceremediations
 ```
 
 Apply remediation by setting `apply` item to `true` [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) object using the following command:
 ```bash
-oc edit -n nist-moderate complianceremediation/<compliance-rule-name>
+oc edit -n how-to-moderate complianceremediation/<compliance-rule-name>
 ```
 
 The [compliance-operator](https://github.com/openshift/compliance-operator) then aggregates all applied remediations and create a `MachineConfig` object per scan. This `MachineConfig` object is rendered to a `MachinePool` and the `MachineConfigDeamon` running on nodes in that pool pushes the configuration to the nodes and reboots the nodes.
