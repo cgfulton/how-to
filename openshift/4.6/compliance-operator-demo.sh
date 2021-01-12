@@ -73,7 +73,7 @@ metadata:
   name: how-to-moderate-subscription
   namespace: how-to-moderate
 spec:
-  channel: "4.6"
+  channel: '4.6'
   installPlanApproval: Automatic
   name: compliance-operator
   source: redhat-operators
