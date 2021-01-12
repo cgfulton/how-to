@@ -17,7 +17,7 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [Create Compliance Suite](#create-compliance-suite)
   - [View Compliance Scan](#view-compliance-scan)
   - [View Scan Settings](#view-scan-settings)
-  - [View Scan Setting Binding](#view-scan-setting binding)
+  - [View Scan Setting Binding](#view-scan-setting-binding)
   
   
   
