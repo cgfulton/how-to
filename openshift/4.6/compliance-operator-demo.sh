@@ -60,11 +60,13 @@ spec:
   targetNamespaces:
   - how-to-moderate
 EOF"
-pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less"
 pe ""
 clear
 
-
+p "View Operator Group"
+pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less"
+pe ""
+clear
 
 pei "echo 'Create Subscription'"
 pe "oc apply -n how-to-moderate -f- <<EOF
@@ -83,31 +85,42 @@ spec:
 EOF"
 pe "clear"
 
-p "echo 'List Cluster Version'"
+p "View Subscription"
+pe "oc describe subscription how-to-moderate-subscription -n how-to-moderate | less"
+pe ""
+clear
+
+p "List Cluster Version"
 pe "oc get clusterserviceversion -n how-to-moderate"
-pe "clear"
+pe ""
+clear
 
-p "echo 'View Install Plan'"
+p "echo 'View Install Plan"
 pe "oc describe installplan -n how-to-moderate | less"
-pe "clear"
+pe ""
+clear
 
-p "echo 'View Deployment'"
+p "View Deployment"
 pe "oc get deploy -n how-to-moderate"
-pe "clear"
+pe ""
+clear
 
-p "echo 'List Running Pods'"
+p "List Running Pods"
 pe "oc get pods -n how-to-moderate"
-pe "clear"
+pe ""
+clear
 
-p "echo 'List Profile Bundle'"
+p "List Profile Bundle"
 pe "oc get profilebundle -n how-to-moderate"
-pe "clear"
+pe ""
+clear
 
-p "echo 'List out-of-the-box Profiles'"
+p "List out-of-the-box Profiles"
 pe "oc get -n how-to-moderate profiles.compliance"
-pe "clear"
+pe ""
+clear
 
-p "echo 'Create Compliance Suite'"
+p "Create Compliance Suite"
 pe "oc apply -n how-to-moderate -f - <<EOF
 apiVersion: compliance.openshift.io/v1alpha1
 kind: ComplianceSuite
@@ -130,49 +143,55 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/worker: ""
 EOF"
-pe "clear"
+pe ""
+clear
 
-p "echo 'View Compliance Suite Events'"
+p "List Compliance Scan"
+pe "oc get compliancescan -n how-to-moderate how-to-moderate-ocp4-scan"
+pe ""
+clear
+
+p "List Compliance Suite Events"
 pe "oc get events -n how-to-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=how-to-moderate-compliance-suite"
 pe "clear"
 
-p "echo 'View Compliance Suite Progress'"
+p "echo 'Watch Compliance Suite Progress'"
 pe "oc get -n how-to-moderate compliancesuites -w"
 pe "clear"
 
-p "echo 'View Compliance Scan'"
-pe "oc get compliancescan -n how-to-moderate how-to-moderate-ocp4-scan"
-pe "clear"
-
-p "echo 'View Compliance Scan Events'"
+p "List Compliance Scan Events"
 pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=how-to-moderate-ocp4-scan"
-pe "clear"
+pe ""
+clear
 
-p "echo 'List and View Scan Settings'"
+p "List and View Scan Settings"
 pe "oc get scansetting -n how-to-moderate"
 pe "oc get scansetting -n how-to-moderate -oyaml | less"
 pe "clear"
 
-p "echo 'List and View Scan Setting Binding'"
+p "List and View Scan Setting Binding"
 pe "oc get scansettingbinding -n how-to-moderate"
 pe "oc get scansettingbinding -n how-to-moderate -o yaml | less"
-pe "clear"
+pe ""
+clear
 
-p "echo 'Watch Scan Pods'"
+p "Watch Scan Pods"
 pe "oc get -n how-to-moderate pods -w"
-pe "clear"
+pe ""
+clear
 
-p "echo 'View Compliance Check Result'"
+p "View Compliance Check Result"
 pe "oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-to-moderate-suite | less"
 pe "clear"
 
-p "echo 'List Compliance Remediation'"
+p "List Compliance Remediation"
 pe "oc get -n how-to-moderate complianceremediations"
-p ""
+pe ""
+clear
 
-p "echo 'Apply Compliance Remediation'"
+p "Apply Compliance Remediation"
 p "oc edit -n how-to-moderate complianceremediation/<compliance-rule-name>"
-
+cmd
 
 
 # show a prompt so as not to reveal our true nature after
