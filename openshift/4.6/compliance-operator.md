@@ -1,5 +1,7 @@
 # HOW-TO: Compliance Operator
-Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan ocp4 and rhcos4 profiles.
+Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan ocp4 and rhcos4 profiles. 
+
+Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 
 ## Table Of Contents
 - [Installation](#installation)
@@ -19,8 +21,9 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [View Scan Settings](#view-scan-settings)
   - [View Scan Setting Binding](#view-scan-setting-binding)
 - [Apply Compliance Remediation](#apply-compliance-remediation)
+- [Automated Walkthrough](#automated-walkthrough)
 - [References](#references)
-- [Demo](#demo)
+
   
 ## Installation
 The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized operator installation instructions.
@@ -283,15 +286,8 @@ oc get nodes -w
 
 Once the nodes reboot, you might want to run another [Compliance Suite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to ensure that the remediation that you applied previously was no longer found.
 
-## References
-[Compliance Operator Git Repository](https://github.com/openshift/compliance-operator)
-
-[Compliance Operator OpenShift Documentation](https://docs.openshift.com/container-platform/4.6/security/compliance_operator/compliance-operator-understanding.html)
-
-[Demo Magic](https://github.com/paxtonhare/demo-magic)
-
-## Demo
-Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts into the current working directory. Using the following commands to execute the downloads and demo:
+## Guided Walk Through
+Please note that the walk through requires `Curl` and `Pipe Viewer` to be installed on your system. Use the following commands to download and execute the walk through scripts in your current working directory:
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
@@ -299,3 +295,12 @@ curl https://raw.githubusercontent.com/cgfulton/how-to/cgfulton-patch-1/openshif
      --output compliance-operator-demo.sh
 sh ./compliance-operator-demo.sh
 ```
+
+## References
+[Compliance Operator Git Repository](https://github.com/openshift/compliance-operator)
+
+[Compliance Operator OpenShift Documentation](https://docs.openshift.com/container-platform/4.6/security/compliance_operator/compliance-operator-understanding.html)
+
+[Demo Magic](https://github.com/paxtonhare/demo-magic)
+
+
