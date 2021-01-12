@@ -11,7 +11,7 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [Create Operator Group](#create-operator-group)
   - [Create Subscription](#create-subscription)
   - [View Deployment](#view-deployment)
-  - [View Profile](#view-profile)
+  - [View Profile](#list-profile)
   - [View Profile Bundle](#view-profile-bundle)
 - [Create Scans](#create-scans)
   - [Create Compliance Suite](#create-compliance-suite)
@@ -133,19 +133,19 @@ oc get pods -n how-to-moderate
 ### View Profile Bundle
 OpenSCAP content for consumption by the Compliance Operator is distributed as container images. In order to make it easier for users to discover what profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. 
 
-View the [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) using the following command:
+List the [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) using the following command:
 ```bash
 oc get profilebundle -n how-to-moderate
 ```
 
-###  View Profile
+### View Profile
 The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects are never created manually, but rather based on a
 [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object, typically one [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) would result in
 several [Profiles](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object). The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object contains parsed out details about
 an OpenSCAP profile such as its XCCDF identifier, what kind of checks the
 profile contains (node vs platform) and for what system or platform.
 
-View the out-of-the-box [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects that are part of the [compliance-operator](https://github.com/openshift/compliance-operator) installation and can be listed using the following command:
+List the out-of-the-box [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects that are part of the [compliance-operator](https://github.com/openshift/compliance-operator) installation and can be listed using the following command:
 ```bash
 oc get -n how-to-moderate profiles.compliance
 ```
@@ -254,7 +254,7 @@ oc get -n how-to-moderate pods -w
 
 To get all the [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) results from the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object by using the label.
 
-View[ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) using the following command:
+View [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) using the following command:
 ```bash
 oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-to-moderate-suite | less
 ```
