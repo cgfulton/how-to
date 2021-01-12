@@ -292,7 +292,6 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 ## Demo
 Copy and execute each of the individual shell scipts below in a terminal window from the current working directory.
 
-Place the demo-magic.sh shell script in the current working directory.
 <details>
   <summary>demo-magic.sh</summary>
   
@@ -516,7 +515,7 @@ EOT
 ```
 </details>
 
-Execute the demo script from the commandline terminal.
+
 <details>
   <summary>Demo Script</summary>
 ```bash
