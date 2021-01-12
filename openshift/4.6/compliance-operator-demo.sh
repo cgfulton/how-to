@@ -65,7 +65,7 @@ pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-compliance-oper
 pe ""
 clear
 
-pe "Create and Inspect Subscription"
+p "Create and Inspect Subscription"
 pe "oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -139,10 +139,6 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/worker: ""
 EOF"
-pe ""
-clear
-
-p "List and Inspect Compliance Scan"
 pe "oc get compliancescan -n how-to-moderate"
 pe "oc describe compliancescan -n how-to-moderate how-to-moderate-ocp4-scan | less"
 pe ""
