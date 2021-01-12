@@ -1,5 +1,5 @@
 # HOW-TO: Compliance Operator
-Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan ocp4 and rhcos4 profiles. 
+Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan a ocp4 and rhcos4 profiles. 
 
 Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 
@@ -9,7 +9,7 @@ Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
     - [View Operator Availability](#view-operator-availability)
     - [View Install Modes and Channels](#view-install-modes-and-channels)
   - [Create Namespace](#create-namespace)
-  - [View Catelog Source](#view-catalog-source)
+  - [View Catalog Source](#view-catalog-source)
   - [Create Operator Group](#create-operator-group)
   - [Create Subscription](#create-subscription)
   - [View Deployment](#view-deployment)
@@ -21,7 +21,7 @@ Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
   - [View Scan Settings](#view-scan-settings)
   - [View Scan Setting Binding](#view-scan-setting-binding)
 - [Apply Compliance Remediation](#apply-compliance-remediation)
-- [Automated Walkthrough](#automated-walkthrough)
+- [Automated Walk-through](#automated-walkthrough)
 - [References](#references)
 
   
@@ -31,7 +31,7 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 ### Prerequisites
 * Access to an OpenShift Container Platform cluster using an account with `cluster-admin` permissions.
 
-* Assuming the `oc command` installed on your local system.
+* Assuming the ` oc ` command is installed on your local system.
 
 #### View Operator Availability
 To ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster verify the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
@@ -40,7 +40,7 @@ oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 ``` 
 
 #### View Install Modes and Channels
-View the supported install modes and channels to see namespaces tenacy supported by the operator using the following command:
+View the supported install modes and channels to see namespaces tenancy supported by the operator using the following command:
 ```bash
 oc describe packagemanifests compliance-operator -n openshift-marketplace
 ```
@@ -84,8 +84,8 @@ View the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_
 oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less
 ```
 
-### Create Subscription
-[Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object keep operators up to date by tracking changes to [Catalogs](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html).
+### Create Subscription 
+The [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object keep operators up to date by tracking changes to [Catalogs](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html).
 
 Create [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
@@ -208,7 +208,7 @@ Similarly to `Pods` in Kubernetes, a [ComplianceScan](https://github.com/openshi
 
 When a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is created by a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object), the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is owned by it. Deleting a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object will result in deleting all the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects that it created.
 
-Once a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) has finished running it'll generate the results as Custom Resources of the [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) kind. However, the raw results in ARF format will also be available. These will be stored in a Persistent Volume which has a Persistent Volume Claim associated that has the same name as the scan.
+Once a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) has finished running it will generate the results as Custom Resources of the [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) kind. However, the raw results in ARF format will also be available. These will be stored in a Persistent Volume which has a Persistent Volume Claim associated that has the same name as the scan.
 
 Note that [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects will generate events which you can fetch programmatically. 
 
@@ -265,7 +265,7 @@ oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-
 ```
 
 ### Apply Compliance Remediation
-When the scan is done, the operator changes the state of the ComplianceSuite object to "Done" and all the pods are transition to the "Completed" state. You can then check the [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) that were found with:
+When the scan is done, the operator changes the state of the ComplianceSuite object to "Done" and all the pods are transitioned to the "Completed" state. You can then check the [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) that were found with:
 
 List [ComplianceRemediation](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-complianceremediation-object) using the following command:
 ```bash
@@ -277,7 +277,7 @@ Apply remediation by setting `apply` item to `true` [ComplianceRemediation](http
 oc edit -n how-to-moderate complianceremediation/<compliance-rule-name>
 ```
 
-The [compliance-operator](https://github.com/openshift/compliance-operator) then aggregates all applied remediations and create a `MachineConfig` object per scan. This `MachineConfig` object is rendered to a `MachinePool` and the `MachineConfigDeamon` running on nodes in that pool pushes the configuration to the nodes and reboots the nodes.
+The [compliance-operator](https://github.com/openshift/compliance-operator) then aggregates all applied remediations and creates a `MachineConfig` object per scan. This `MachineConfig` object is rendered to a `MachinePool` and the `MachineConfigDeamon` running on nodes in that pool pushes the configuration to the nodes and reboots the nodes.
 
 You can watch the node status with using the following command:
 ```bash
