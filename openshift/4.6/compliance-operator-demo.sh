@@ -13,14 +13,14 @@
 #
 # speed at which to simulate typing. bigger num = faster
 #
-# TYPE_SPEED=40
+# TYPE_SPEED=60
 
 #
 # custom prompt
 #
 # see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html for escape sequences
 #
-DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
+DEMO_PROMPT="${BLACK}➜ ${CYAN}\W "
 
 # text color
 DEMO_CMD_COLOR=$BLACK
@@ -69,7 +69,7 @@ pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-compliance-oper
 pe ""
 clear
 
-pei "echo 'Create Subscription'"
+pe "Create Subscription"
 pe "oc apply -n how-to-moderate -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
