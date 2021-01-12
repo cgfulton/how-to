@@ -33,6 +33,13 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 
 * Assuming the ` oc ` command is installed on your local system.
 
+* As part of this guide, it's assumed that you have installed an unique namespace set in the `NAMESPACE` environment variable:
+
+Set this to the namespace you're deploying the operator:
+```bash
+export NAMESPACE=<your-namespace>
+```
+
 #### View Operator Availability
 To ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster verify the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
 ```bash
