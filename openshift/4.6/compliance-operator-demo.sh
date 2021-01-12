@@ -81,7 +81,23 @@ pei "echo 'View Install Plan'"
 pe "oc describe installplan -n how-to-moderate | less"
 pe "clear"
 
+pei "echo 'View Deployment'"
+pe "oc get deploy -n how-to-moderate"
+pe "clear"
 
+pei "echo 'List Running Pods'"
+pe "oc get pods -n how-to-moderate"
+pe "clear"
+
+pei "echo 'List ProfileBundle'"
+pe "oc get profilebundle -n how-to-moderate"
+pe "clear"
+
+pei "echo 'List out-of-the-box Profiles'"
+pe "oc get -n how-to-moderate profiles.compliance"
+pe "clear"
+
+pei "echo ''"
 
 
 # show a prompt so as not to reveal our true nature after
