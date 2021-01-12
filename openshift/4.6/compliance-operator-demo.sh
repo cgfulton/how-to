@@ -30,12 +30,12 @@ oc delete project how-to-moderate
 # hide the evidence
 clear
 
-p "View Operator Availability"
+p "List Operator Availability"
 pe "oc get packagemanifests -n openshift-marketplace | grep compliance-operator"
 pe ""
 clear
 
-p "View Install Modes and Channels"
+p "Inspect Install Modes and Channels"
 pe "oc describe packagemanifests compliance-operator -n openshift-marketplace | less"
 pe ""
 clear
@@ -45,7 +45,7 @@ pe "oc new-project how-to-moderate"
 pe ""
 clear
 
-p "View Catalog Source"
+p "Inspect Catalog Source"
 pe "oc describe catalogsource redhat-marketplace -n openshift-marketplace | less"
 pe ""
 clear
@@ -63,7 +63,8 @@ EOF"
 pe ""
 clear
 
-p "View Operator Group"
+p "List and Inspect Operator Group"
+pe "oc get OperatorGroup -n how-to-moderate"
 pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less"
 pe ""
 clear
@@ -83,9 +84,11 @@ spec:
   sourceNamespace: openshift-marketplace
   startingCSV: compliance-operator.v0.1.17  
 EOF"
-pe "clear"
+pe ""
+clear
 
-p "View Subscription"
+p "List and Inspect Subscription"
+pe "oc get subscription -n how-to-moderate"
 pe "oc describe subscription how-to-moderate-subscription -n how-to-moderate | less"
 pe ""
 clear
@@ -95,12 +98,13 @@ pe "oc get clusterserviceversion -n how-to-moderate"
 pe ""
 clear
 
-p "echo 'View Install Plan"
+p "List and Inspect Install Plan"
+pe "oc describe installplan -n how-to-moderate"
 pe "oc describe installplan -n how-to-moderate | less"
 pe ""
 clear
 
-p "View Deployment"
+p "List Deployment"
 pe "oc get deploy -n how-to-moderate"
 pe ""
 clear
@@ -116,7 +120,7 @@ pe ""
 clear
 
 p "List out-of-the-box Profiles"
-pe "oc get -n how-to-moderate profiles.compliance"
+pe "oc get profiles.compliance -n how-to-moderate "
 pe ""
 clear
 
@@ -146,8 +150,9 @@ EOF"
 pe ""
 clear
 
-p "List Compliance Scan"
-pe "oc get compliancescan -n how-to-moderate how-to-moderate-ocp4-scan"
+p "List and Inspect Compliance Scan"
+pe "oc get compliancescan -n how-to-moderate"
+pe "oc describe compliancescan -n how-to-moderate how-to-moderate-ocp4-scan | less"
 pe ""
 clear
 
@@ -155,7 +160,7 @@ p "List Compliance Suite Events"
 pe "oc get events -n how-to-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=how-to-moderate-compliance-suite"
 pe "clear"
 
-p "echo 'Watch Compliance Suite Progress'"
+p "Watch Compliance Suite Progress"
 pe "oc get -n how-to-moderate compliancesuites -w"
 pe "clear"
 
@@ -164,12 +169,12 @@ pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedOb
 pe ""
 clear
 
-p "List and View Scan Settings"
+p "List and Inspect Scan Settings"
 pe "oc get scansetting -n how-to-moderate"
 pe "oc get scansetting -n how-to-moderate -oyaml | less"
 pe "clear"
 
-p "List and View Scan Setting Binding"
+p "List and Inspect Scan Setting Binding"
 pe "oc get scansettingbinding -n how-to-moderate"
 pe "oc get scansettingbinding -n how-to-moderate -o yaml | less"
 pe ""
@@ -180,7 +185,7 @@ pe "oc get -n how-to-moderate pods -w"
 pe ""
 clear
 
-p "View Compliance Check Result"
+p "List Compliance Check Result"
 pe "oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-to-moderate-suite | less"
 pe "clear"
 
