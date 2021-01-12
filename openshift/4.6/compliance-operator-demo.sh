@@ -65,7 +65,7 @@ clear
 
 p "List and Inspect Operator Group"
 pe "oc get OperatorGroup -n how-to-moderate"
-pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less"
+pe "oc describe OperatorGroup -n how-to-moderate how-to-moderate-compliance-operator | less"
 pe ""
 clear
 
