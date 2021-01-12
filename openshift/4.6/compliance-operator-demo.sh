@@ -25,6 +25,8 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 # text color
 # DEMO_CMD_COLOR=$BLACK
 
+oc delete project how-to-moderate
+
 # hide the evidence
 clear
 
