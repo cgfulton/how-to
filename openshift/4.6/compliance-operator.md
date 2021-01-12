@@ -79,9 +79,14 @@ spec:
 EOF
 ```
 
-View the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
+List the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
-oc describe OperatorGroup -n how-to-moderate how-to-moderate-operator-group | less
+oc describe OperatorGroup -n how-to-moderate 
+```
+
+Inspect the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
+```bash
+oc describe OperatorGroup -n how-to-moderate how-to-moderate-compliance-operator | less
 ```
 
 ### Create Subscription 
@@ -105,7 +110,12 @@ spec:
 EOF
 ```
 
-View the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
+List the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
+```bash
+oc describe subscription how-to-moderate-subscription -n how-to-moderate
+```
+
+Inspect the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
 oc describe subscription how-to-moderate-subscription -n how-to-moderate | less
 ```
