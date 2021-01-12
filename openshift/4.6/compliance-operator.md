@@ -522,15 +522,10 @@ EOT
 sh <<EOF
 #!/bin/bash
 
-########################
-# include the magic
-########################
 . demo-magic.sh
 
-# hide the evidence
 clear
 
-# Put your stuff here
 EOF
 ```
 </details>
