@@ -295,9 +295,9 @@ Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-
 
 Execute the demo using the following command.
 ```bash
-curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
+curl https://raw.githubusercontent.com/paxtonhare/demo-magic/cgfulton-patch-1/demo-magic.sh \
      --output demo-magic.sh
-curl https://raw.githubusercontent.com/cgfulton/how-to/master/openshift/4.6/compliance-operator-demo.sh \
+curl https://raw.githubusercontent.com/cgfulton/how-to/cgfulton-patch-1/openshift/4.6/compliance-operator-demo.sh \
      --output compliance-operator-demo.sh
 sh ./compliance-operator-demo.sh
 ```
