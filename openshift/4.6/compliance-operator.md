@@ -287,10 +287,7 @@ oc get nodes -w
 Once the nodes reboot, you might want to run another [Compliance Suite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to ensure that the remediation that you applied previously was no longer found.
 
 ## Guided Walk Through
-Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts into the current working directory. Use the following commands to download the scripts and execute the walk through:
-
-> Demo Magic requires pv, Pipe Viewer, to be installed on your system.
-
+Please note that the walk through requires `Curl` and `Pipe Viewer` to be installed on your system. Use the following commands to download and execute the walk through scripts in your current working directory:
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
