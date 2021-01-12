@@ -13,7 +13,7 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [View Deployment](#view-deployment)
   - [View Profile](#view-profile)
   - [View Profile Bundle](#view-profile-bundle)
-- [Create Scans](#Create-scans)
+- [Create Scans](#create-scans)
   - [Create Compliance Suite](#create-compliance-suite)
   - [View Compliance Scan](#view-compliance-scan)
   - [View Scan Settings](#view-scan-settings)
@@ -150,7 +150,7 @@ View the out-of-the-box [Profile](https://github.com/openshift/compliance-operat
 oc get -n how-to-moderate profiles.compliance
 ```
 
-## Scans 
+## Create Scans 
 After we have installed the [compliance-operator](https://github.com/openshift/compliance-operator) in the `how-to-moderate` namespace we are ready to start creating scans.
 
 ### Create Compliance Suite
