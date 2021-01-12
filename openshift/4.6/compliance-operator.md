@@ -4,20 +4,21 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
 ## Table Of Contents
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-    - [Operator Availability](#operator-availability)
-    - [Install Modes and Channels](#install-modes-and-channels)
-    - [Namespace](#namespace)
-    - [Catelog Source](#cataloge-source)
-    - [Operator Group](#operator-group)
-    - [Subscription](#subscription)
-    - [Deployment](#deployment)
-      - [Profile](#profile)
-      - [Profile Bundle](#profile-bundle)
+    - [View Operator Availability](#view-operator-availability)
+    - [View Install Modes and Channels](#view-install-modes-and-channels)
+    - [Create Namespace](#create-namespace)
+    - [View Catelog Source](#view-cataloge-source)
+    - [Create Operator Group](#create-operator-group)
+    - [Create Subscription](#create-subscription)
+    - [View Deployment](#view-deployment)
+      - [View Profile](#view-profile)
+      - [View Profile Bundle](#view-profile-bundle)
 - [Scans](#scans)
-  - [Create ScanSettings](#create-scansettings)
-  - [Create ScanSettingBinding](#create-scansettingbinding)
-  - [Create ComplianceSuite](#create-compliancesuite)
-  - [Inspect ComplianceScan](#inspect-compliancescan)
+  - [Create Compliance Suite](#create-compliance-suite)
+  - [View Compliance Scan](#view-compliance-scan)
+  - [View Scan Settings](#view-scan-settings)
+  - [View ScanSetting Binding](#view-scan-setting binding)
+  
   
   
 # TODO
@@ -40,15 +41,15 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 
 * Assuming the `oc command` installed on your local system.
 
-#### Operator Availability
+#### View Operator Availability
 We need to ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster.
 
-**Verify** the [compliance-operator](https://github.com/openshift/compliance-operator) availability using the following command:
+Verify the [compliance-operator](https://github.com/openshift/compliance-operator) availability using the following command:
 ```bash
 oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 ``` 
 
-**Inspect** the supported install modes and channels supported using the following command:
+View the supported install modes and channels supported using the following command:
 ```bash
 oc describe packagemanifests compliance-operator -n openshift-marketplace
 ```
@@ -61,10 +62,10 @@ Create the `fisma-moderate` namespace  using the following command:
 oc new-project fisma-moderate
 ```
 
-#### Inspect Catalog Source
+#### View Catalog Source
 A catalog source, defined by a [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) object is a repository of CSVs, CRDs, and operator packages. For this how-to we will be using the supported "4.6" version of the operator. 
 
-Inspect the [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace using the following command:
+View the [CatalogSource](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/catalogsource-operators-coreos-com-v1alpha1.html) objects in the `openshift-marketplace` namespace using the following command:
 ```bash
 oc get catalogsource redhat-marketplace -n openshift-marketplace
 ```
@@ -87,7 +88,7 @@ spec:
 EOF
 ```
 
-Inspect the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
+View the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
 oc get OperatorGroup -n fisma-moderate -oyaml fisma-moderate-operator-group | less
 ```
@@ -112,12 +113,12 @@ spec:
   startingCSV: compliance-operator.v0.1.17  
 EOF
 ```
-Inspect the new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
+View the new [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
 oc describe subscription fisma-moderate-subscription -n fisma-moderate | less
 ```
 
-#### Inspect Deployment
+#### View Deployment
 At this point, [OpenShift Lifecycle Manager](https://docs.openshift.com/container-platform/4.6/operators/understanding/olm/olm-understanding-olm.html) is now aware of the selected Operator. A cluster service version (CSV) for the Operator should appear in the target namespace, and APIs provided by the Operator should be available for creation.
 
 List the [Cluster Service Version](https://docs.openshift.com/container-platform/4.6/operators/operator_sdk/osdk-generating-csvs.html) version using the following command:
@@ -126,7 +127,7 @@ List the [Cluster Service Version](https://docs.openshift.com/container-platform
 oc get clusterserviceversion -n fisma-moderate
 ```
 
-Inspect the `Install Plan` using the following command:
+View the `Install Plan` using the following command:
 ```bash
 oc describe installplan -n fisma-moderate | less
 ```
@@ -143,7 +144,7 @@ List the Running `Pods` using the following command:
 oc get pods -n fisma-moderate
 ```
 
-#### Profile Bundle
+#### View Profile Bundle
 OpenSCAP content for consumption by the Compliance Operator is distributedas container images. In order to make it easier for users to discover what profiles a container image ships, a [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object can be created, which the Compliance Operator then parses and creates a [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object for each profile in the bundle. The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) can be then either used directly or further customized using a [TailoredProfile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-tailoredprofile-object) object.
 
 List the [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) using the following command:
@@ -151,7 +152,7 @@ List the [ProfileBundle](https://github.com/openshift/compliance-operator/blob/m
 oc get profilebundle -n fisma-moderate
 ```
 
-####  Profile
+####  View Profile
 The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) objects are never created manually, but rather based on a
 [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) object, typically one [ProfileBundle](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profilebundle-object) would result in
 several [Profiles](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object). The [Profile](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-profile-object) object contains parsed out details about
@@ -211,7 +212,7 @@ Watch the [ComplianceSuite](https://github.com/openshift/compliance-operator/blo
 oc get -n fisma-moderate compliancesuites -w
 ```
 
-### Inspect Generated Compliance Scan
+### View Compliance Scan
 Similarly to `Pods` in Kubernetes, a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is the base object that the compliance-operator introduces. Also similarly to `Pods`, you normally don't want to create a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object directly, and would instead want a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to manage it.
 
 When a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is created by a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object), the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) is owned by it. Deleting a [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object will result in deleting all the [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects that it created.
@@ -220,7 +221,7 @@ Once a [ComplianceScan](https://github.com/openshift/compliance-operator/blob/ma
 
 Note that [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) objects will generate events which you can fetch programmatically. 
 
-Inspect [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object:
+View [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object:
 ```bash
 oc get compliancescan -n fisma-moderate fisma-moderate-ocp4-scan
 ```
@@ -230,7 +231,7 @@ View the events for the scan called `fisma-moderate-ocp4-scan` use the following
 oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=fisma-moderate-ocp4-scan
 ```
 
-### Inspect Generated Scan Settings
+### View Scan Settings
 [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) fall into two basic categories - platform and node. The platform scans are for the cluster itself, in the listing above they're the ocp4-* scans, while the purpose of the node scans is to scan the actual cluster nodes. All the rhcos4-* profiles above can be used to create node scans.
 
 List the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
@@ -238,12 +239,12 @@ List the [ScanSetting](https://github.com/openshift/compliance-operator/blob/mas
 oc get scansetting -n fisma-moderate
 ```
 
-Inspect the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
+View the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object:
 ```bash
 oc get scansetting -n fisma-moderate -oyaml | less
 ```
 
-### Inspect Generated Scan Setting Binding
+### Generated Scan Setting Binding
 Before using one, you will need to configure how the scans will run. We can do this with the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) custom resource.
 
 To run rhcos4-moderate and ocp4-moderate profiles, we will create the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) objects for each type.
@@ -253,7 +254,7 @@ List the [ScanSettingBinding](https://github.com/openshift/compliance-operator/b
 oc get scansettingbinding -n fisma-moderate 
 ```
 
-Inspect the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object using the following command:
+View the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object using the following command:
 ```bash
 oc get scansettingbinding -n fisma-moderate -o yaml | less
 ```
@@ -267,7 +268,7 @@ oc get -n fisma-moderate pods -w
 
 To get all the [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) results from the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) object by using the label.
 
-Inspect [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) using the following command:
+View[ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) using the following command:
 ```bash
 oc get compliancesuites -n fisma-moderate -l compliance.openshift.io/suite=fisma-moderate-suite | less
 ```
