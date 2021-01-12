@@ -75,27 +75,27 @@ pe "clear"
 
 pei "echo 'List Cluster Version'"
 pe "oc get clusterserviceversion -n how-to-moderate"
-pei "clear"
+pe "clear"
 
 pei "echo 'View Install Plan'"
 pe "oc describe installplan -n how-to-moderate | less"
-pei "clear"
+pe "clear"
 
 pei "echo 'View Deployment'"
 pe "oc get deploy -n how-to-moderate"
-pei "clear"
+pe "clear"
 
 pei "echo 'List Running Pods'"
 pe "oc get pods -n how-to-moderate"
-pei "clear"
+pe "clear"
 
 pei "echo 'List Profile Bundle'"
 pe "oc get profilebundle -n how-to-moderate"
-pei "clear"
+pe "clear"
 
 pei "echo 'List out-of-the-box Profiles'"
 pe "oc get -n how-to-moderate profiles.compliance"
-pei "clear"
+pe "clear"
 
 pei "echo 'Create Compliance Suite'"
 pe "oc apply -n how-to-moderate -f - <<EOF
@@ -120,9 +120,15 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/worker: ""
 EOF"
-pei "clear"
+pe "clear"
 
+pei "echo 'View Compliance Suite Events'"
+pe "oc get events -n fisma-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=fisma-moderate-compliance-suite"
+pe "clear"
 
+pei "echo 'View Compliance Suite Progress'"
+pe "oc get -n fisma-moderate compliancesuites -w"
+pe "clear"
 
 
 # show a prompt so as not to reveal our true nature after
