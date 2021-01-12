@@ -1,7 +1,7 @@
 # HOW-TO: Compliance Operator
 Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan ocp4 and rhcos4 profiles. 
 
-Use the [Automated Walkthrough](#automated-walkthrough) if you are in a hurry.
+Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 
 ## Table Of Contents
 - [Installation](#installation)
@@ -286,8 +286,8 @@ oc get nodes -w
 
 Once the nodes reboot, you might want to run another [Compliance Suite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to ensure that the remediation that you applied previously was no longer found.
 
-## Automated Walkthrough
-Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts into the current working directory. Use the following commands to execute the downloads and demo:
+## Guided Walk Through
+Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts into the current working directory. Use the following commands to download the scripts and execute the walk through:
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
