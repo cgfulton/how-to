@@ -152,9 +152,16 @@ pei "echo 'Watch Scan Pods'"
 pe "oc get -n how-to-moderate pods -w"
 pe "clear"
 
+pei "echo 'View Compliance Check Result'"
+pe "oc get compliancesuites -n how-to-moderate -l compliance.openshift.io/suite=how-to-moderate-suite | less"
+pe "clear"
 
+pei "echo 'List Compliance Remediation'"
+pe "oc get -n how-to-moderate complianceremediations"
+p ""
 
-
+pe "echo 'Apply Compliance Remediation'"
+pe "oc edit -n how-to-moderate complianceremediation/<compliance-rule-name>"
 
 
 
