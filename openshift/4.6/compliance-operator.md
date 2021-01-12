@@ -19,6 +19,8 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [View Scan Settings](#view-scan-settings)
   - [View Scan Setting Binding](#view-scan-setting-binding)
 - [Apply Compliance Remediation](#apply-compliance-remediation)
+- [References](#references)
+- [Demo](#demo)
   
 ## Installation
 The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized operator installation instructions.
@@ -187,7 +189,6 @@ EOF
 ```
 
 Note that [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects will generate events which you can fetch programmatically. To get the events for the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) called `how-to-moderate-compliance-suite` use the following command:
-
 ```bash
 oc get events -n how-to-moderate --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=how-to-moderate-compliance-suite
 ```
@@ -290,14 +291,11 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 [Demo Magic](https://github.com/paxtonhare/demo-magic)
 
 ## Demo
-Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts the same working directory. 
-
-
-Execute the demo using the following command.
+Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts into the current working directory. Using the following commands to execute the downloads and demo:
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
-curl https://raw.githubusercontent.com/cgfulton/how-to/master/openshift/4.6/compliance-operator-demo.sh \
+curl https://raw.githubusercontent.com/cgfulton/how-to/cgfulton-patch-1/openshift/4.6/compliance-operator-demo.sh \
      --output compliance-operator-demo.sh
-./compliance-operator-demo.sh
+sh ./compliance-operator-demo.sh
 ```
