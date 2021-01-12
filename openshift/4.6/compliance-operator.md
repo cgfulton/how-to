@@ -19,6 +19,8 @@ Basic how-to for running the [compliance-operator](https://github.com/openshift/
   - [View Scan Settings](#view-scan-settings)
   - [View Scan Setting Binding](#view-scan-setting-binding)
 - [Apply Compliance Remediation](#apply-compliance-remediation)
+- [References](#references)
+- [Demo](#demo)
   
 ## Installation
 The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized operator installation instructions.
