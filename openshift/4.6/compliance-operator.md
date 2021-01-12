@@ -513,19 +513,28 @@ while getopts ":dhncw:" opt; do
 done
 EOT
 ```
+
 </details>
 
 
 <details>
   <summary>Demo Script</summary>
+  
 ```bash
 sh <<EOF
 #!/bin/bash
 
+########################
+# include the magic
+########################
 . demo-magic.sh
 
+# hide the evidence
 clear
+
+# Put your stuff here
 
 EOF
 ```
+
 </details>
