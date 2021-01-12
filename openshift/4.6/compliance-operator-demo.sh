@@ -28,41 +28,23 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 # hide the evidence
 clear
 
+p "echo 'View Operator Availability'"
+pe "oc get packagemanifests -n openshift-marketplace | grep compliance-operator"
+pe "clear"
 
-# put your demo awesomeness here
-if [ ! -d "stuff" ]; then
-  pe "mkdir stuff"
-fi
+p "echo 'View Install Modes and Channels'"
+pe "oc describe packagemanifests compliance-operator -n openshift-marketplace"
+pe "clear"
 
-# print and execute: cd stuff
-pe "cd stuff"
+p "echo 'Create Namespace'"
+pe "oc new-project how-to-moderate"
+pe "clear"
 
-# ctl + c support: ctl + c to stop long-running process and continue demo
-pe "ping www.google.com"
+p "echo 'View Catalog Source'"
+pe "oc describe catalogsource redhat-marketplace -n openshift-marketplace | less"
+pe "clear"
 
-# print and execute: echo 'hello world' > file.txt
-pe "echo 'hello world' > file.txt"
 
-# wait max 3 seconds until user presses
-PROMPT_TIMEOUT=3
-wait
-
-# print and execute immediately: ls -l
-pei "ls -l"
-# print and execute immediately: cat file.txt
-pei "cat file.txt"
-
-# and reset it to manual mode to wait until user presses enter
-PROMPT_TIMEOUT=0
-
-# print only
-p "cat \"something you want to pretend to run\""
-
-# run command behind
-cd .. && rm -rf stuff
-
-# enters interactive mode and allows newly typed command to be executed
-cmd
 
 # show a prompt so as not to reveal our true nature after
 # the demo has concluded
