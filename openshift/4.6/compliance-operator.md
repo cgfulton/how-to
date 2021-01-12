@@ -290,10 +290,10 @@ Once the nodes reboot, you might want to run another [Compliance Suite](https://
 [Demo Magic](https://github.com/paxtonhare/demo-magic)
 
 ## Demo
-Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./demo.sh) shell scipts the same working directory. 
+Download both [demo-magic.sh](https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh) and [demo.sh](./compliance-operator-demo.sh) shell scipts the same working directory. 
 
 
 Execute the demo using the following command.
 ```bash
-./demo.sh
+./compliance-operator-demo.sh
 ```
