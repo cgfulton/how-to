@@ -122,7 +122,7 @@ metadata:
   name: ${NAMESPACE}-compliance-suite
 spec:
   autoApplyRemediations: false
-  schedule: "0 1 * * *"
+  schedule: '0 1 * * *'
   scans:
     - name: ${NAMESPACE}-rhcos4-scan
       scanType: Node
