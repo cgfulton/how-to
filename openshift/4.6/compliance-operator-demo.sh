@@ -138,6 +138,7 @@ spec:
         node-role.kubernetes.io/worker: ''
 EOF"
 pe "oc get compliancescan -n ${NAMESPACE}"
+pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-rhcos4-scan | less"
 pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan | less"
 pe ""
 clear
