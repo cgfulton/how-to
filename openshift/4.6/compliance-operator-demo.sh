@@ -143,7 +143,7 @@ pe ""
 clear
 
 p "List Compliance Scan Events"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=${NAMESPACE}-rhcos4-scan"
 pe ""
 clear
 
@@ -158,7 +158,8 @@ pe ""
 clear
 
 p "Apply Compliance Remediation"
-p "oc edit -n ${NAMESPACE} complianceremediation/<compliance-rule-name>"
+p "oc edit -n ${NAMESPACE} complianceremediation/<compliance_rule_name>"
+p "oc patch complianceremediations/<compliance_rule_name> --patch '{"spec":{"apply":true}}' --type=merge"
 pe ""
 
 # show a prompt so as not to reveal our true nature after
