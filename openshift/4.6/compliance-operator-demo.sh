@@ -10,9 +10,6 @@
 # Configure the options
 ########################
 
-NAMESPACE=gfulton-${NAMESPACE}
-
-
 #
 # speed at which to simulate typing. bigger num = faster
 #
@@ -28,7 +25,6 @@ DEMO_PROMPT="${BLACK}➜ ${CYAN}\W "
 # text color
 DEMO_CMD_COLOR=$BLACK
 
-oc delete project $NAMESPACE
 
 # hide the evidence
 clear
