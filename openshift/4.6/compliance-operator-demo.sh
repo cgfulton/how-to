@@ -13,7 +13,7 @@
 #
 # speed at which to simulate typing. bigger num = faster
 #
-TYPE_SPEED=60
+TYPE_SPEED=100
 
 #
 # custom prompt
@@ -143,19 +143,14 @@ pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan | less"
 pe ""
 clear
 
-p "List Compliance Suite Events"
-pe "oc get events -n ${NAMESPACE} --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=${NAMESPACE}-compliance-suite"
-pe ""
-clear
-
 p "Watch Suite Progress"
 pe "oc get -n ${NAMESPACE} compliancesuites -w"
 pe ""
 clear
 
 p "List Compliance Scan Events"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-ocp4-scan"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-rhcos4-scan"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-ocp4-scan"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
 pe ""
 clear
 

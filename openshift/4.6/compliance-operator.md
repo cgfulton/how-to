@@ -208,11 +208,6 @@ spec:
 EOF
 ```
 
-Note that [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects will generate events which you can fetch programmatically. To get the events for the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) called `${NAMESPACE}-compliance-suite` use the following command:
-```bash
-oc get events -n ${NAMESPACE} --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=${NAMESPACE}-compliance-suite
-```
-
 At this point the operator reconciles the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) custom resource, we can use this to track the progress of our scans using the following command:
 
 Watch the [ComplianceSuite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) objects:
@@ -236,7 +231,8 @@ oc get compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan
 
 View the events for the scan called `${NAMESPACE}-ocp4-scan` use the following command:
 ```bash
-oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-ocp4-scan
+oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan
+oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-ocp4-scan
 ```
 
 ### View Scan Settings
