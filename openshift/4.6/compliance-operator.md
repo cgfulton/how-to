@@ -1,5 +1,5 @@
 # HOW-TO: Compliance Operator
-Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan using the rhcos4 profile. 
+Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) to perform a compliance scan using the rhcos4-moderate profile. 
 
 Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 
