@@ -130,16 +130,9 @@ spec:
       content: ssg-rhcos4-ds.xml
       nodeSelector:
         node-role.kubernetes.io/worker: ''
-    - name: ${NAMESPACE}-ocp4-scan
-      scanType: Platform
-      profile: xccdf_org.ssgproject.content_profile_moderate
-      content: ssg-ocp4-ds.xml
-      nodeSelector:
-        node-role.kubernetes.io/worker: ''
 EOF"
 pe "oc get compliancescan -n ${NAMESPACE}"
 pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-rhcos4-scan | less"
-pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan | less"
 pe ""
 clear
 
@@ -149,7 +142,6 @@ pe ""
 clear
 
 p "List Compliance Scan Events"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-ocp4-scan"
 pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
 pe ""
 clear

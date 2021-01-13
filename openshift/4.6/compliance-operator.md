@@ -1,5 +1,5 @@
 # HOW-TO: Compliance Operator
-Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan a ocp4 and rhcos4 profiles. 
+Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) on the command line to perform a compliance scan using the rhcos4 profile. 
 
 Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 
@@ -196,12 +196,6 @@ spec:
       content: ssg-rhcos4-ds.xml
       nodeSelector:
         node-role.kubernetes.io/worker: ''
-    - name: ${NAMESPACE}-ocp4-scan
-      scanType: Platform
-      profile: xccdf_org.ssgproject.content_profile_moderate
-      content: ssg-ocp4-ds.xml
-      nodeSelector:
-        node-role.kubernetes.io/worker: ''
 EOF
 ```
 
@@ -223,13 +217,12 @@ Note that [ComplianceScan](https://github.com/openshift/compliance-operator/blob
 
 View [ComplianceScan](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancescan-object) object:
 ```bash
-oc get compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan
+oc get compliancescan -n ${NAMESPACE} ${NAMESPACE}-rhcos4-scan
 ```
 
-View the events for the scan called `${NAMESPACE}-ocp4-scan` use the following command:
+View the events for the scan called `${NAMESPACE}-rhcos4-scan` use the following command:
 ```bash
 oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan
-oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-ocp4-scan
 ```
 
 ### View Scan Settings
@@ -248,7 +241,7 @@ oc get scansetting -n ${NAMESPACE} -oyaml | less
 ### View Scan Setting Binding
 Before using one, you will need to configure how the scans will run. We can do this with the [ScanSetting](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) custom resource.
 
-To run rhcos4-moderate and ocp4-moderate profiles, we will create the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) objects for each type.
+To run rhcos4-moderate profile, the system will create a [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object.
 
 List the [ScanSettingBinding](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-scansetting-and-scansettingbinding-objects) object using the following command:
 ```bash
