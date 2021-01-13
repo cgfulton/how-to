@@ -145,11 +145,13 @@ clear
 
 p "List Compliance Suite Events"
 pe "oc get events -n ${NAMESPACE} --field-selector involvedObject.kind=ComplianceSuite,involvedObject.name=${NAMESPACE}-compliance-suite"
-pe "clear"
+pe ""
+clear
 
 p "Watch Compliance Suite Progress"
 pe "oc get -n ${NAMESPACE} compliancesuites -w"
-pe "clear"
+pe ""
+clear
 
 p "List Compliance Scan Events"
 pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-ocp4-scan"
@@ -174,7 +176,8 @@ clear
 
 p "List Compliance Check Result"
 pe "oc get compliancesuites -n ${NAMESPACE} -l compliance.openshift.io/suite=${NAMESPACE}-compliance-suite | less"
-pe "clear"
+pe ""
+clear
 
 p "List Compliance Remediation"
 pe "oc get -n ${NAMESPACE} complianceremediations"
