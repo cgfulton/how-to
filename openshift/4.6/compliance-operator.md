@@ -6,8 +6,9 @@ Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 ## Table Of Contents
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-    - [View Operator Availability](#view-operator-availability)
-    - [View Install Modes and Channels](#view-install-modes-and-channels)
+    - [Assumptions](#assumptions)
+    - [Verify Operator Availability](#verify-operator-availability)
+    - [Verify Install Modes and Channels](#verify-install-modes-and-channels)
   - [Create Namespace](#create-namespace)
   - [View Catalog Source](#view-catalog-source)
   - [Create Operator Group](#create-operator-group)
@@ -36,14 +37,14 @@ The [compliance-operator](https://github.com/openshift/compliance-operator) is i
 
 * Assume the environment variable `NAMESPACE` has been exported on your local system.
 
-#### View Operator Availability
+#### Verify Operator Availability
 To ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster verify the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
 ```bash
 oc get packagemanifests -n openshift-marketplace | grep compliance-operator
 ``` 
 
-#### View Install Modes and Channels
-View the supported install modes and channels to see namespaces tenancy supported by the operator using the following command:
+#### Verify Install Modes and Channels
+Verify the supported install modes and channels to see namespaces tenancy supported by the operator using the following command:
 ```bash
 oc describe packagemanifests compliance-operator -n openshift-marketplace
 ```
