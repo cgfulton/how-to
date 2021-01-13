@@ -13,7 +13,7 @@
 #
 # speed at which to simulate typing. bigger num = faster
 #
-TYPE_SPEED=40
+TYPE_SPEED=60
 
 #
 # custom prompt
@@ -84,7 +84,7 @@ pe "oc describe subscription ${NAMESPACE}-subscription -n ${NAMESPACE} | less"
 pe ""
 clear
 
-p "List Cluster Version"
+p "List Cluster Service Version"
 pe "oc get clusterserviceversion -n ${NAMESPACE}"
 pe ""
 clear
