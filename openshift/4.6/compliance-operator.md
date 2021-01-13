@@ -88,7 +88,7 @@ EOF
 
 List the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
 ```bash
-oc describe OperatorGroup -n ${NAMESPACE} 
+oc get OperatorGroup -n ${NAMESPACE} 
 ```
 
 Inspect the [OperatorGroup](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/operatorgroup-operators-coreos-com-v1.html) object using the following command:
@@ -119,7 +119,7 @@ EOF
 
 List the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
 ```bash
-oc describe subscription ${NAMESPACE}-subscription -n ${NAMESPACE}
+oc get subscription ${NAMESPACE}-subscription -n ${NAMESPACE}
 ```
 
 Inspect the [Subscription](https://docs.openshift.com/container-platform/4.6/rest_api/operatorhub_apis/subscription-operators-coreos-com-v1alpha1.html) object using the following command:
@@ -136,9 +136,9 @@ List the [Cluster Service Version](https://docs.openshift.com/container-platform
 oc get clusterserviceversion -n ${NAMESPACE}
 ```
 
-View the `Install Plan` using the following command:
+List the `Install Plan` using the following command:
 ```bash
-oc describe installplan -n ${NAMESPACE} | less
+oc get installplan -n ${NAMESPACE} 
 ```
 
 At this point, the operator should be up and running.

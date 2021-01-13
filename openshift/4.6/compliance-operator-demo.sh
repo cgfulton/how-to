@@ -13,7 +13,7 @@
 #
 # speed at which to simulate typing. bigger num = faster
 #
-# TYPE_SPEED=100
+TYPE_SPEED=40
 
 #
 # custom prompt
@@ -89,9 +89,8 @@ pe "oc get clusterserviceversion -n ${NAMESPACE}"
 pe ""
 clear
 
-p "List and Inspect Install Plan"
+p "List Install Plan"
 pe "oc describe installplan -n ${NAMESPACE}"
-pe "oc describe installplan -n ${NAMESPACE} | less"
 pe ""
 clear
 
