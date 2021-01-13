@@ -130,34 +130,12 @@ spec:
       content: ssg-rhcos4-ds.xml
       nodeSelector:
         node-role.kubernetes.io/worker: ''
-    - name: ${NAMESPACE}-ocp4-scan
-      scanType: Platform
-      profile: xccdf_org.ssgproject.content_profile_moderate
-      content: ssg-ocp4-ds.xml
-      nodeSelector:
-        node-role.kubernetes.io/worker: ''
 EOF"
+pe "oc get -n ${NAMESPACE} compliancesuites"
 pe "oc get compliancescan -n ${NAMESPACE}"
 pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-rhcos4-scan | less"
-pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan | less"
 pe ""
 clear
-
-p "Watch Suite Progress"
-pe "oc get -n ${NAMESPACE} compliancesuites -w"
-pe ""
-clear
-
-p "List Compliance Scan Events"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-ocp4-scan"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
-pe ""
-clear
-
-p "List and Inspect Scan Settings"
-pe "oc get scansetting -n ${NAMESPACE}"
-pe "oc get scansetting -n ${NAMESPACE} -oyaml | less"
-pe "clear"
 
 p "List and Inspect Scan Setting Binding"
 pe "oc get scansettingbinding -n ${NAMESPACE}"
@@ -165,13 +143,18 @@ pe "oc get scansettingbinding -n ${NAMESPACE} -o yaml | less"
 pe ""
 clear
 
-p "Watch Scan Pods"
-pe "oc get -n ${NAMESPACE} pods -w"
+p "List Scan Pods"
+pe "oc get -n ${NAMESPACE} pods"
+pe ""
+clear
+
+p "List Compliance Scan Events"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
 pe ""
 clear
 
 p "List Compliance Check Result"
-pe "oc get compliancesuites -n ${NAMESPACE} -l compliance.openshift.io/suite=${NAMESPACE}-compliance-suite | less"
+pe "oc get compliancecheckresults.compliance.openshift.io -n ${NAMESPACE} | less"
 pe ""
 clear
 
