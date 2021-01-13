@@ -148,13 +148,14 @@ pe "oc get events -n ${NAMESPACE} --field-selector involvedObject.kind=Complianc
 pe ""
 clear
 
-p "Watch Compliance Suite Progress"
+p "Watch Suite Progress"
 pe "oc get -n ${NAMESPACE} compliancesuites -w"
 pe ""
 clear
 
 p "List Compliance Scan Events"
 pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-ocp4-scan"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject name=${NAMESPACE}-rhcos4-scan"
 pe ""
 clear
 
