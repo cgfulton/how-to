@@ -1,7 +1,7 @@
 # HOW-TO: Compliance Operator
 Basic how-to for running the [compliance-operator](https://github.com/openshift/compliance-operator) on [OpenShift version 4.6](https://docs.openshift.com/container-platform/4.6/welcome/index.html) to perform a compliance scan using the rhcos4-moderate profile. 
 
-Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
+Use the [Walk-Through](#walk-through) if you are in a hurry.
 
 ## Table Of Contents
 - [Installation](#installation)
@@ -289,20 +289,24 @@ oc get nodes -w
 
 Once the nodes reboot, you might want to run another [Compliance Suite](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancesuite-object) to ensure that the remediation that you applied previously was no longer found.
 
-## Guided Walk Through
+## Walk Through
 Please note that the walk through requires `Curl` and `Pipe Viewer` to be installed on your system. 
 
-Download demo-magic and walk through scripts using the following commands:
+1. Download demo-magic script using the following commands:
 ```bash
 curl https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh \
      --output demo-magic.sh
-curl https://raw.githubusercontent.com/cgfulton/how-to/main/openshift/4.6/compliance-operator-demo.sh \
-     --output compliance-operator-demo.sh
 ```
 
-Execute the walk through using the following command:
+2. Download walk-through script using the following command:
 ```bash
-sh ./compliance-operator-demo.sh
+curl https://raw.githubusercontent.com/cgfulton/how-to/main/openshift/compliance-operator-walk-through.sh \
+     --output compliance-operator-walk-through.sh
+```
+
+3. Execute the walk-through using the following command:
+```bash
+sh ./compliance-operator-walk-through.sh
 ```
 
 ## References
