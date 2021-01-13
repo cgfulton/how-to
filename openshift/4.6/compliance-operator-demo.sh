@@ -90,7 +90,7 @@ pe ""
 clear
 
 p "List Install Plan"
-pe "oc describe installplan -n ${NAMESPACE}"
+pe "oc get installplan -n ${NAMESPACE}"
 pe ""
 clear
 
