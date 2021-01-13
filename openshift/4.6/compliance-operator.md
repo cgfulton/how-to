@@ -29,16 +29,12 @@ Use the [Guided Walk Through](#guided-walk-through) if you are in a hurry.
 The [compliance-operator](https://github.com/openshift/compliance-operator) is installable on OpenShift by an account with cluster-admin permissions. See [Adding Operators to a cluster](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html) for generalized operator installation instructions.
 
 ### Prerequisites
+#### Assumptions
 * Access to an OpenShift Container Platform cluster using an account with `cluster-admin` permissions.
 
-* Assuming the ` oc ` command is installed on your local system.
+* Assume the ` oc ` command is installed on your local system.
 
-* As part of this guide, it's assumed that you have installed an unique namespace set in the `NAMESPACE` environment variable:
-
-Set this to the namespace you're deploying the operator:
-```bash
-export NAMESPACE=<your-namespace>
-```
+* Assume the environment variable `NAMESPACE` has been exported on your local system.
 
 #### View Operator Availability
 To ensure that the [compliance-operator](https://github.com/openshift/compliance-operator) is available to the cluster verify the [compliance-operator](https://github.com/openshift/compliance-operator) using the following command:
