@@ -154,7 +154,7 @@ pe ""
 clear
 
 p "List Compliance Check Result"
-pe "oc get compliancesuites -n ${NAMESPACE} -l compliance.openshift.io/suite=${NAMESPACE}-compliance-suite | less"
+pe "oc get compliancecheckresults.compliance.openshift.io -n ${NAMESPACE} | less"
 pe ""
 clear
 

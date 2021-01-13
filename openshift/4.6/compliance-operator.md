@@ -264,7 +264,7 @@ To get all the [ComplianceCheckResult](https://github.com/openshift/compliance-o
 
 View [ComplianceCheckResult](https://github.com/openshift/compliance-operator/blob/master/doc/crds.md#the-compliancecheckresult-object) using the following command:
 ```bash
-oc get compliancesuites -n ${NAMESPACE} -l compliance.openshift.io/suite=${NAMESPACE}-compliance-suite | less
+oc get compliancecheckresults.compliance.openshift.io -n ${NAMESPACE} | less
 ```
 
 ### Apply Compliance Remediation
