@@ -131,24 +131,9 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/worker: ''
 EOF"
+pe "oc get -n ${NAMESPACE} compliancesuites"
 pe "oc get compliancescan -n ${NAMESPACE}"
 pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-rhcos4-scan | less"
-pe ""
-clear
-
-p "Watch Suite Progress"
-pe "oc get -n ${NAMESPACE} compliancesuites -w"
-pe ""
-clear
-
-p "List Compliance Scan Events"
-pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
-pe ""
-clear
-
-p "List and Inspect Scan Settings"
-pe "oc get scansetting -n ${NAMESPACE}"
-pe "oc get scansetting -n ${NAMESPACE} -oyaml | less"
 pe ""
 clear
 
@@ -160,6 +145,11 @@ clear
 
 p "List Scan Pods"
 pe "oc get -n ${NAMESPACE} pods"
+pe ""
+clear
+
+p "List Compliance Scan Events"
+pe "oc get events --field-selector involvedObject.kind=ComplianceScan,involvedObject.name=gfulton-how-to-demo-rhcos4-scan"
 pe ""
 clear
 
