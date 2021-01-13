@@ -149,7 +149,8 @@ clear
 p "List and Inspect Scan Settings"
 pe "oc get scansetting -n ${NAMESPACE}"
 pe "oc get scansetting -n ${NAMESPACE} -oyaml | less"
-pe "clear"
+pe ""
+clear
 
 p "List and Inspect Scan Setting Binding"
 pe "oc get scansettingbinding -n ${NAMESPACE}"
@@ -157,8 +158,8 @@ pe "oc get scansettingbinding -n ${NAMESPACE} -o yaml | less"
 pe ""
 clear
 
-p "Watch Scan Pods"
-pe "oc get -n ${NAMESPACE} pods -w"
+p "List Scan Pods"
+pe "oc get -n ${NAMESPACE} pods"
 pe ""
 clear
 
