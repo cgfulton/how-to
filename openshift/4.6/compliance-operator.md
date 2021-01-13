@@ -105,7 +105,7 @@ metadata:
   name: ${NAMESPACE}-subscription
   namespace: ${NAMESPACE}
 spec:
-  channel: "4.6"
+  channel: '4.6'
   installPlanApproval: Automatic
   name: compliance-operator
   source: redhat-operators
@@ -188,20 +188,20 @@ metadata:
   name: ${NAMESPACE}-compliance-suite
 spec:
   autoApplyRemediations: false
-  schedule: "0 1 * * *"
+  schedule: '0 1 * * *'
   scans:
     - name: ${NAMESPACE}-rhcos4-scan
       scanType: Node
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-rhcos4-ds.xml
       nodeSelector:
-        node-role.kubernetes.io/worker: ""
+        node-role.kubernetes.io/worker: ''
     - name: ${NAMESPACE}-ocp4-scan
       scanType: Platform
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-ocp4-ds.xml
       nodeSelector:
-        node-role.kubernetes.io/worker: ""
+        node-role.kubernetes.io/worker: ''
 EOF
 ```
 
