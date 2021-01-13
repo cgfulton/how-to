@@ -137,12 +137,6 @@ pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-rhcos4-scan | less"
 pe ""
 clear
 
-p "List and Inspect Scan Setting Binding"
-pe "oc get scansettingbinding -n ${NAMESPACE}"
-pe "oc get scansettingbinding -n ${NAMESPACE} -o yaml | less"
-pe ""
-clear
-
 p "List Scan Pods"
 pe "oc get -n ${NAMESPACE} pods"
 pe ""
@@ -165,8 +159,7 @@ clear
 
 p "Apply Compliance Remediation"
 p "oc edit -n ${NAMESPACE} complianceremediation/<compliance-rule-name>"
-cmd
-
+pe ""
 
 # show a prompt so as not to reveal our true nature after
 # the demo has concluded
