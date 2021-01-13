@@ -129,13 +129,13 @@ spec:
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-rhcos4-ds.xml
       nodeSelector:
-        node-role.kubernetes.io/worker: ""
+        node-role.kubernetes.io/worker: ''
     - name: ${NAMESPACE}-ocp4-scan
       scanType: Platform
       profile: xccdf_org.ssgproject.content_profile_moderate
       content: ssg-ocp4-ds.xml
       nodeSelector:
-        node-role.kubernetes.io/worker: ""
+        node-role.kubernetes.io/worker: ''
 EOF"
 pe "oc get compliancescan -n ${NAMESPACE}"
 pe "oc describe compliancescan -n ${NAMESPACE} ${NAMESPACE}-ocp4-scan | less"
