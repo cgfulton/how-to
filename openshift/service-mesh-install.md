@@ -252,12 +252,13 @@ echo $GATEWAY_URL
 
 8. Add `Destination Rules` using the following command:
 ```bash
-oc apply -n {BOOKINFO_NAMESPACE} -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all-mtls.yaml 
+export DEST_RULES=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all.yaml
+oc apply -n $BOOKINFO_NAMESPACE -f $DEST_RULES
 ```
 
 9. List Pods using the following command:
 ```bash
-oc get pods -n {BOOKINFO_NAMESPACE}
+oc get pods -n $BOOKINFO_NAMESPACE
 ```   
 
 10. Verify Deployment using the following command:

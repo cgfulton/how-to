@@ -208,7 +208,8 @@ pe ""
 clear
 
 p "Add Destination Rules"
-pe "oc apply -n $BOOKINFO_NAMESPACE$ -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all-mtls.yaml"
+pe "export DEST_RULES=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all.yaml && \
+oc apply -n $BOOKINFO_NAMESPACE -f $DEST_RULES"
 pe ""
 clear
 
