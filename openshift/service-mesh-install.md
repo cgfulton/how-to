@@ -292,13 +292,6 @@ curl https://raw.githubusercontent.com/cgfulton/how-to/main/openshift/service-me
 sh ./service-mesh-install-walk-through.sh
 ```
 
-## Cleanup
-```bash
-oc delete user $BOOKINFO_USER
-oc delete project $BOOKINFO_NAMESPACE
-oc delete project $CONTROL_PLANE_NAMESPACE
-```
-
 ## References
 
 ### Operator API

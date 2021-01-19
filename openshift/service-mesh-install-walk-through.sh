@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ########################
 # include the magic
@@ -29,7 +29,7 @@ DEMO_CMD_COLOR=$BLACK
 # hide the evidence
 clear
 
-p "Installing the Red Hat Elasticsearch Operator"
+pe "Installing the Red Hat Elasticsearch Operator"
 pe "oc apply -n openshift-operators -f- <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -100,13 +100,9 @@ EOF"
 pe ""
 clear
 
-p "Export the environment variable"
-pe "export CONTROL_PLANE_NAMESPACE=istio-system"
-pe ""
-clear
-
 p "Create Control Plane Project"
-pe "oc new-project $CONTROL_PLANE_NAMESPACE"
+pe "export CONTROL_PLANE_NAMESPACE=istio-system && \
+oc new-project $CONTROL_PLANE_NAMESPACE"
 pe ""
 clear
 
@@ -142,8 +138,8 @@ pe "oc get smcp -n $CONTROL_PLANE_NAMESPACE"
 pe ""
 clear
 
-p "Create a project for each `Service Mesh Member`"
-pe "export BOOKINFO_NAMESPACE=bookinfo
+p "Create a project for each Service Mesh Member"
+pe "export BOOKINFO_NAMESPACE=bookinfo && \
 oc new-project $BOOKINFO_NAMESPACE"
 pe ""
 clear
@@ -164,7 +160,7 @@ pe ""
 clear
 
 p "Create service mesh user"
-pe "export BOOKINFO_MESH_USER=bookinfo-mesh-user
+pe "export BOOKINFO_MESH_USER=bookinfo-mesh-user && \
 oc create user $BOOKINFO_MESH_USER"
 pe ""
 clear
@@ -189,35 +185,35 @@ pe ""
 clear
 
 p "Create application deployment"
-pe "export BOOKINFO_APP_YAML=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/platform/kube/bookinfo.yaml
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=reviews # reviews Service
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=reviews # reviews ServiceAccount
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=reviews,version=v2 # reviews-v3 Deployment
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=ratings # ratings Service
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=ratings # ratings ServiceAccount
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=ratings,version=v1 # ratings-v1 Deployment
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=details # details Service
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=details # details ServiceAccount
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=details,version=v1 # details-v1 Deployment
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=productpage # productpage Service
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=productpage # productpage ServiceAccount
+pe "export BOOKINFO_APP_YAML=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/platform/kube/bookinfo.yaml && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=reviews # reviews Service && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=reviews # reviews ServiceAccount && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=reviews,version=v2 # reviews-v3 Deployment && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=ratings # ratings Service && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=ratings # ratings ServiceAccount && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=ratings,version=v1 # ratings-v1 Deployment && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=details # details Service && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=details # details ServiceAccount && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=details,version=v1 # details-v1 Deployment && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=productpage # productpage Service && \
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=productpage # productpage ServiceAccount && \
 oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=productpage,version=v1 # productpage-v1 Deployment"
 pe ""
 clear
 
 p "Create Gateway Deployment"
-pe "oc apply -n $BOOKINFO_NAMESPACE -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/bookinfo-gateway.yaml
+pe "oc apply -n $BOOKINFO_NAMESPACE -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/bookinfo-gateway.yaml && \
 echo $GATEWAY_URL"
 pe ""
 clear
 
 p "Add Destination Rules"
-pe "oc apply -n {BOOKINFO_NAMESPACE} -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all-mtls.yaml "
+pe "oc apply -n $BOOKINFO_NAMESPACE$ -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all-mtls.yaml"
 pe ""
 clear
 
 p "List Pods"
-pe "oc get pods -n {BOOKINFO_NAMESPACE}"
+pe "oc get pods -n $BOOKINFO_NAMESPACE"
 pe ""
 clear
 
