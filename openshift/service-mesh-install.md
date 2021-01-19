@@ -312,4 +312,4 @@ oc delete project $CONTROL_PLANE_NAMESPACE
 - [Istio Release 1.6.14](https://istio.io/latest/news/releases/1.6.x/announcing-1.6.14/) 
 
 ## Trouble Shooting
-- [Unable To Delete Namespace](#https://access.redhat.com/solutions/4165791)
+- [Unable To Delete Namespace](https://access.redhat.com/solutions/4165791)
