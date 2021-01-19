@@ -255,7 +255,7 @@ echo $GATEWAY_URL
 oc apply -n {BOOKINFO_NAMESPACE} -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all-mtls.yaml 
 ```
 
-11. List Pods using the following command:
+9. List Pods using the following command:
 ```bash
 oc get pods -n {BOOKINFO_NAMESPACE}
 ```   
