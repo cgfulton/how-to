@@ -215,7 +215,7 @@ export BOOKINFO_APP_YAML=https://raw.githubusercontent.com/Maistra/istio/maistra
 ```bash
 oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l service=reviews # reviews Service
 oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l account=reviews # reviews ServiceAccount
-oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=reviews,version=v2 # reviews-v3 Deployment
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=reviews,version=v1 # reviews-v1 Deployment
 ```
 
 3. Create bookinfo `Ratings` deployment using the following command:
@@ -291,6 +291,19 @@ curl https://raw.githubusercontent.com/cgfulton/how-to/main/openshift/service-me
 3. Execute the walk through using the following command:
 ```bash
 sh ./service-mesh-install-walk-through.sh
+```
+
+## Traffic Management
+
+### Request Routing
+1. Deploy `reviews v2` see the BLACK Stars
+```bash
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=reviews,version=v2
+```
+
+2. Deploy `reviews v3` see the RED Stars
+```bash
+oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=reviews,version=v3
 ```
 
 ## References
