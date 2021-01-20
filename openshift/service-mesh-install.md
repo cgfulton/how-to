@@ -241,7 +241,8 @@ oc apply -n $BOOKINFO_NAMESPACE -f $BOOKINFO_APP_YAML -l app=productpage,version
 
 6. Create bookinfo `Gateway` deployment using the following command:
 ```bash
-oc apply -n $BOOKINFO_NAMESPACE -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/bookinfo-gateway.yaml
+export GATEWAY_CONFIG=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/bookinfo-gateway.yaml
+oc apply -n $BOOKINFO_NAMESPACE -f $GATEWAY_CONFIG
 ```
 
 7. Export Gateway URL using the following command:

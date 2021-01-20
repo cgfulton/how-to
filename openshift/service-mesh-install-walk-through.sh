@@ -202,7 +202,9 @@ pe ""
 clear
 
 p "Create Gateway Deployment"
-pe "oc apply -n $BOOKINFO_NAMESPACE -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/bookinfo-gateway.yaml && \
+pe "export GATEWAY_CONFIG=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/bookinfo-gateway.yaml
+oc apply -n $BOOKINFO_NAMESPACE -f $GATEWAY_CONFIG && \
+export GATEWAY_URL=$(oc -n $CONTROL_PLANE_NAMESPACE get route istio-ingressgateway -o jsonpath='{.spec.host}') && \
 echo $GATEWAY_URL"
 pe ""
 clear
@@ -210,6 +212,11 @@ clear
 p "Add Destination Rules"
 pe "export DEST_RULES=https://raw.githubusercontent.com/Maistra/istio/maistra-2.0/samples/bookinfo/networking/destination-rule-all.yaml && \
 oc apply -n $BOOKINFO_NAMESPACE -f $DEST_RULES"
+pe ""
+clear
+
+p "Gateway URL"
+
 pe ""
 clear
 
