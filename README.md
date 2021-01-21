@@ -4,4 +4,4 @@ A place to document how to this or that..
 
 ## OpenShift 
 
-[Compliance Operator](openshift/4.6/compliance-operator.md)
+[Compliance Operator](https://github.com/ocp4opsandsecurity/compliance-operator)
